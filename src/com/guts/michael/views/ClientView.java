@@ -1,7 +1,10 @@
 package com.guts.michael.views;
 
+import com.guts.michael.connection.Client;
+
 import javax.swing.*;
 import java.awt.*;
+import java.net.UnknownHostException;
 
 public class ClientView {
 
@@ -11,7 +14,9 @@ public class ClientView {
     private final int DEFAULT_WIDTH = 800;
     private final int DEFAULT_HEIGHT = 800;
 
-    public ClientView() {
+    private Client client;
+
+    public ClientView(String ip) throws UnknownHostException {
         panel = new JPanel();
         panel.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
@@ -24,6 +29,8 @@ public class ClientView {
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        client = new Client(ip);
     }
 
     public void render(Graphics g) {

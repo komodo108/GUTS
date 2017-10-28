@@ -10,7 +10,6 @@ import java.net.UnknownHostException;
 
 public class ClientConnectionView {
 
-    private static ClientConnectionView clientView;
     private JFrame frame;
     private JTextField ip;
     private JButton go;
@@ -38,8 +37,7 @@ public class ClientConnectionView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    connection = new Client(ip.getText());
-                    connection.start();
+                    ClientView client = new ClientView(ip.getText());
                 } catch (UnknownHostException e1) {
                     error.setText(format("There was an error"));
                     e1.printStackTrace();
