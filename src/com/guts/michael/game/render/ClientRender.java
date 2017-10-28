@@ -4,6 +4,7 @@ import com.guts.michael.game.SpriteLoader;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 
 public class ClientRender extends JPanel {
@@ -19,6 +20,7 @@ public class ClientRender extends JPanel {
                 g.drawImage(loader.getSprites(0), 100, 100, null);
             } catch (IOException e) {
                 System.err.println("Spritesheet not found!!");
+                System.exit(1);
             }
         } else {
             String s = "Connecting...";

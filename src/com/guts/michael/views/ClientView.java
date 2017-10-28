@@ -1,17 +1,20 @@
 package com.guts.michael.views;
 
 import com.guts.michael.connection.Client;
+import com.guts.michael.game.KeyListen;
 import com.guts.michael.game.render.ClientRender;
 
 import javax.swing.*;
 import java.awt.*;
 import java.net.UnknownHostException;
+import java.security.Key;
 import java.util.Observer;
 
 public class ClientView implements Observer {
 
     private JFrame frame;
     private ClientRender clientRender;
+    private KeyListen keyListen = new KeyListen();
 
     private final int DEFAULT_WIDTH = 800;
     private final int DEFAULT_HEIGHT = 800;
@@ -33,6 +36,8 @@ public class ClientView implements Observer {
         Client client = new Client(ip);
         client.addObserver(this);
         new Thread(client).start();
+
+        clientRender.addKeyListener(keyListen);
 
         frame.repaint();
     }

@@ -4,10 +4,10 @@ import java.util.Observable;
 
 public class Game extends Observable {
 
-    private Map map;
+    private IMap map;
     private IEntity player;
 
-    public Game(Map map, IEntity player) {
+    public Game(IMap map, IEntity player) {
         this.map = map;
         this.player = player;
     }
@@ -20,6 +20,10 @@ public class Game extends Observable {
 
     public IMap getMap() {
         return map;
+    }
+
+    public IEntity getPlayer() {
+        return player;
     }
 
     public void shiftRow(int row, int amount) {

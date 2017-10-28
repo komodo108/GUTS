@@ -26,7 +26,9 @@ public class Server extends java.util.Observable implements Runnable, Observer {
             write = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
 
             // TODO: first thing should be to send the initial map
+            // TODO: Also send the initial entity state, so the client can make a Game
             writeMap();
+            writeEntity();
 
             while (true) {
 
@@ -58,6 +60,15 @@ public class Server extends java.util.Observable implements Runnable, Observer {
     public void writeMap() {
         try {
             write.write(new MapPacket(game.getMap()).asPacketString());
+            write.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeEntity() {
+        try {
+            write.write(new EntityPacket(game.getPlayer()).asPacketString());
             write.flush();
         } catch (IOException e) {
             e.printStackTrace();

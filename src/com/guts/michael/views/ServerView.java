@@ -1,6 +1,7 @@
 package com.guts.michael.views;
 
 import com.guts.michael.connection.Server;
+import com.guts.michael.game.KeyListen;
 import com.guts.michael.game.render.ServerRender;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ public class ServerView implements Observer {
 
     private JFrame frame;
     private ServerRender serverRender;
+    private KeyListen keyListen = new KeyListen();
 
     private final int DEFAULT_WIDTH = 800;
     private final int DEFAULT_HEIGHT = 800;
@@ -33,6 +35,8 @@ public class ServerView implements Observer {
         Server server = new Server();
         server.addObserver(this);
         new Thread(server).start();
+
+        serverRender.addKeyListener(keyListen);
 
         frame.repaint();
     }
