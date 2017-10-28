@@ -2,7 +2,6 @@ package com.guts.michael.views;
 
 import com.guts.michael.connection.Client;
 import com.guts.michael.game.render.ClientRender;
-import com.guts.michael.game.render.ServerRender;
 
 import javax.swing.*;
 import java.awt.*;

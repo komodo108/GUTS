@@ -17,6 +17,14 @@ public class MovePacket extends Packet {
         return new MovePacket(Direction.valueOf(split[0]), Integer.valueOf(split[1]));
     }
 
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
     @Override
     public PacketType getType() {
         return PacketType.MOVE;

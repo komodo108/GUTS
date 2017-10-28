@@ -1,13 +1,21 @@
 package com.guts.michael.connection;
 
-import com.guts.michael.game.IMap;
-import com.guts.michael.game.Map;
+import com.guts.michael.game.*;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Server extends java.util.Observable implements Runnable {
+public class Server extends java.util.Observable implements Runnable, Observer {
+
+    private Game game;
+    private BufferedWriter write;
+
+    public Server() {
+        game = new Game(Map.generateRandom(), new Entity(0, EntityType.PLAYER, 4, 4, Direction.RIGHT));
+    }
 
     @Override
     public void run() {
@@ -15,12 +23,10 @@ public class Server extends java.util.Observable implements Runnable {
             ServerSocket serverSocket = new ServerSocket(26789);
             Socket s = serverSocket.accept();
             BufferedReader read = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            BufferedWriter write = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+            write = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
 
             // TODO: first thing should be to send the initial map
-            IMap map = Map.generateRandom();
-            write.write(new MapPacket(map).asPacketString());
-            write.flush();
+            writeMap();
 
             while (true) {
 
@@ -36,12 +42,9 @@ public class Server extends java.util.Observable implements Runnable {
                     System.out.println("received " + packet.getType().name());
 
                     if (packet instanceof MovePacket) {
-                        // TODO: handle move packet here
+                        MovePacket move = (MovePacket) packet;
+                        game.movePlayer(move.getAmount(), move.getDirection());
                     }
-
-                    //ServerRender
-                    setChanged();
-                    notifyObservers();
 
                 } catch (CorruptedPacketException e) {
                     System.out.println("received corrupted packet");
@@ -50,5 +53,24 @@ public class Server extends java.util.Observable implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void writeMap() {
+        try {
+            write.write(new MapPacket(game.getMap()).asPacketString());
+            write.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void movePlayer(int amount, Direction direction) {
+        game.movePlayer(amount, direction);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        setChanged();
+        notifyObservers();
     }
 }
