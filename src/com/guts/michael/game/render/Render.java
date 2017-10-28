@@ -17,9 +17,9 @@ public class Render extends JPanel {
         g.clearRect(0, 0, getWidth(), getHeight());
         try {
             loader = new SpriteLoader(32, 32, 8, 8);
-            for(int x = 0; x < game.getMap().getTiles().length; x++) {
-                for(int y = 0; y < game.getMap().getTiles()[x].length; y++) {
-                    if(isClient && game.getPlayer().getX() == x && game.getPlayer().getY() == y) {
+            for (int x = 0; x < game.getMap().getTiles().length; x++) {
+                for (int y = 0; y < game.getMap().getTiles()[x].length; y++) {
+                    if (!isClient || (game.getPlayer().getX() == x && game.getPlayer().getY() == y)) {
                         switch (game.getMap().getTiles()[x][y].getType()) {
                             case WALL:
                                 //0
