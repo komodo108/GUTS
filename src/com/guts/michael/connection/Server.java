@@ -6,13 +6,8 @@ import com.guts.michael.game.Map;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Observer;
 
 public class Server extends java.util.Observable implements Runnable {
-
-    public Server(Observer o) {
-        addObserver(o);
-    }
 
     @Override
     public void run() {

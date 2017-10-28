@@ -13,9 +13,8 @@ public class Client extends Observable implements Runnable {
 
     private InetAddress ip;
 
-    public Client(String ip, Observer o) throws UnknownHostException {
+    public Client(String ip) throws UnknownHostException {
         this.ip = InetAddress.getByName(ip);
-        addObserver(o);
     }
 
     @Override

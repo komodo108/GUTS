@@ -31,7 +31,9 @@ public class ClientView implements Observer {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        new Thread(new Client(ip, this)).start();
+        Client client = new Client(ip);
+        client.addObserver(this);
+        new Thread(client).start();
 
         frame.repaint();
     }
