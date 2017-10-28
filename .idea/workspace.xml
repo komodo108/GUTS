@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2cfe0104-b64d-4f4e-be27-d3639b9e1fcb" name="Default" comment="Implement basic connection and game functionality">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/guts/michael/connection/MovePacket.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/guts/michael/game/Direction.java" />
+    <list default="true" id="2cfe0104-b64d-4f4e-be27-d3639b9e1fcb" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/guts/michael/connection/Server.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/guts/michael/connection/Connection.java" afterPath="$PROJECT_DIR$/src/com/guts/michael/connection/Client.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ConnectionView.java" afterPath="$PROJECT_DIR$/src/ConnectionView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/guts/michael/connection/Packet.java" afterPath="$PROJECT_DIR$/src/com/guts/michael/connection/Packet.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -77,12 +78,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Packet.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/guts/michael/connection/Packet.java">
+      <file leaf-file-name="Client.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/guts/michael/connection/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="49" lean-forward="false" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
-              <folding />
+            <state relative-caret-position="345">
+              <caret line="23" column="26" lean-forward="false" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/guts/michael/connection/Server.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="66" lean-forward="false" selection-start-line="16" selection-start-column="66" selection-end-line="16" selection-end-column="66" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -104,19 +119,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/guts/michael/game/Tile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding>
-                <element signature="e#114#115#0" expanded="true" />
-                <element signature="e#141#142#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="TileType.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/guts/michael/game/TileType.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -133,8 +135,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -171,6 +173,8 @@
         <option value="$PROJECT_DIR$/src/com/guts/michael/game/Direction.java" />
         <option value="$PROJECT_DIR$/src/com/guts/michael/connection/MovePacket.java" />
         <option value="$PROJECT_DIR$/src/com/guts/michael/connection/Packet.java" />
+        <option value="$PROJECT_DIR$/src/com/guts/michael/connection/Client.java" />
+        <option value="$PROJECT_DIR$/src/com/guts/michael/connection/Server.java" />
       </list>
     </option>
   </component>
@@ -556,11 +560,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509151956136</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add move packet">
+      <created>1509152586225</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1509152586225</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15264000" />
+    <option name="totallyTimeSpent" value="15915000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -621,7 +632,8 @@
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Connection Stuff Added" />
     <MESSAGE value="Implement basic connection and game functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement basic connection and game functionality" />
+    <MESSAGE value="Add move packet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add move packet" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -705,16 +717,6 @@
         <state relative-caret-position="75">
           <caret line="5" column="16" lean-forward="false" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/guts/michael/connection/Connection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="19" column="18" lean-forward="false" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -828,9 +830,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/guts/michael/connection/Packet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="49" lean-forward="false" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
-          <folding />
+        <state relative-caret-position="480">
+          <caret line="32" column="18" lean-forward="false" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/guts/michael/connection/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="26" lean-forward="false" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/guts/michael/connection/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="66" lean-forward="false" selection-start-line="16" selection-start-column="66" selection-end-line="16" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

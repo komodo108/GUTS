@@ -1,5 +1,8 @@
 package com.guts.michael.connection;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+
 public abstract class Packet implements IPacket {
 
     /**
@@ -19,5 +22,20 @@ public abstract class Packet implements IPacket {
             default:
                 return null;
         }
+    }
+
+    /**
+     * Read the next packet from a buffered reader.
+     * @param read the buffered reader
+     * @return the parsed packed
+     * @throws IOException if there is an IO error
+     */
+    public static IPacket readNextPacket(BufferedReader read) throws IOException {
+        StringBuffer packetString = new StringBuffer();
+        String line;
+        while ((line = read.readLine()) != null && !line.equals("END")) {
+            packetString.append(line + '\n');
+        }
+        return Packet.fromString(packetString.toString());
     }
 }

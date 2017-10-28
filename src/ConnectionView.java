@@ -1,4 +1,4 @@
-import com.guts.michael.connection.Connection;
+import com.guts.michael.connection.Client;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class ConnectionView {
     private JButton go;
     private JLabel error;
 
-    private Connection connection;
+    private Client connection;
 
     private final String DEFAULT_NAME = "Enter Server IP";
     private final int DEFAULT_WIDTH = 400;
@@ -51,7 +51,7 @@ public class ConnectionView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    connection = new Connection(ip.getText());
+                    connection = new Client(ip.getText());
                     connection.start();
                 } catch (UnknownHostException e1) {
                     e1.printStackTrace();
