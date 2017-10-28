@@ -24,6 +24,11 @@ public class Server extends Thread {
                     // Read packet
                     IPacket packet = Packet.readNextPacket(read);
 
+                    if (packet == null) {
+                        s.close();
+                        break;
+                    }
+
                     System.out.println("received " + packet.getType().name());
 
                     if (packet instanceof MovePacket) {

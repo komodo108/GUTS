@@ -35,7 +35,7 @@ public abstract class Packet implements IPacket {
     /**
      * Read the next packet from a buffered reader.
      * @param read the buffered reader
-     * @return the parsed packed
+     * @return the parsed packed or null if there is no next packet
      * @throws IOException if there is an IO error
      */
     public static IPacket readNextPacket(BufferedReader read) throws IOException {
@@ -44,10 +44,17 @@ public abstract class Packet implements IPacket {
         while ((line = read.readLine()) != null && !line.equals("END")) {
             if (line.equals("")) {
                 continue;
+            } else if (line.equals("QUIT")) {
+                return null;
             }
             packetString.append(line);
             packetString.append('\n');
         }
-        return Packet.fromDataString(packetString.toString());
+
+        try {
+            return Packet.fromDataString(packetString.toString());
+        } catch (StringIndexOutOfBoundsException e) {
+            return null;
+        }
     }
 }
