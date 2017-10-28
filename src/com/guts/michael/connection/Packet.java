@@ -20,7 +20,7 @@ public abstract class Packet implements IPacket {
      */
     public static IPacket fromDataString(String input) throws CorruptedPacketException {
         String firstLine = input.substring(0, input.indexOf('\n'));
-        String data = input.substring(input.indexOf('\n') + 1, input.length() - 1);
+        String data = firstLine.equals(input.trim()) ? "" : input.substring(input.indexOf('\n') + 1, input.length() - 1);
 
         try {
             PacketType type = PacketType.valueOf(firstLine);
