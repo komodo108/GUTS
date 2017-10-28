@@ -26,6 +26,10 @@ public class Client extends Thread {
 
                 // Read packet
                 IPacket packet = Packet.readNextPacket(read);
+
+                if (packet instanceof MapPacket) {
+                    // TODO: handle map packet here
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

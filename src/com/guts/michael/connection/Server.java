@@ -21,6 +21,10 @@ public class Server extends Thread {
 
                 // Read packet
                 IPacket packet = Packet.readNextPacket(read);
+
+                if (packet instanceof MovePacket) {
+                    // TODO: handle move packet here
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
