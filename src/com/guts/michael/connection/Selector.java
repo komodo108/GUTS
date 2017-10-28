@@ -1,4 +1,4 @@
-import com.guts.michael.connection.Server;
+package com.guts.michael.connection;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

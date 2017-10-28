@@ -1,3 +1,5 @@
+package com.guts.michael.connection;
+
 import java.awt.*;
 
 public class Views {

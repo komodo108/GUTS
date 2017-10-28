@@ -1,10 +1,33 @@
 package com.guts.michael.connection;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server extends Thread {
+
+    private JFrame frame;
+    private JPanel panel;
+
+    private final int DEFAULT_WIDTH = 400;
+    private final int DEFAULT_HEIGHT = 400;
+
+    public Server() {
+        panel = new JPanel();
+        panel.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+
+        frame = new JFrame(Views.getDEFAULT_NAME());
+        frame.setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
+        frame.setResizable(Views.isRESIZABLE());
+
+        frame.add(panel);
+
+        frame.setLayout(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
 
     @Override
     public void run() {
@@ -16,11 +39,9 @@ public class Server extends Thread {
 
             // TODO: first thing should be to send the initial map
 
-            // Main server loop
             while (true) {
 
                 try {
-
                     // Read packet
                     IPacket packet = Packet.readNextPacket(read);
 
@@ -34,6 +55,10 @@ public class Server extends Thread {
                     if (packet instanceof MovePacket) {
                         // TODO: handle move packet here
                     }
+
+                    //Render
+                    render(panel.getGraphics());
+
                 } catch (CorruptedPacketException e) {
                     System.out.println("received corrupted packet");
                 }
@@ -41,5 +66,9 @@ public class Server extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void render(Graphics g) {
+        g.drawLine(400, 0, 0, 400);
     }
 }
