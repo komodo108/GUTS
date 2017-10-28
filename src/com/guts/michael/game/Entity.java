@@ -17,6 +17,16 @@ public class Entity implements IEntity {
     }
 
     @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public EntityType getType() {
+        return type;
+    }
+
+    @Override
     public int getX() {
         return x;
     }
@@ -27,13 +37,8 @@ public class Entity implements IEntity {
     }
 
     @Override
-    public EntityType getType() {
-        return type;
-    }
-
-    @Override
-    public int getId() {
-        return id;
+    public Direction getOrientation() {
+        return orientation;
     }
 
     @Override
@@ -49,12 +54,16 @@ public class Entity implements IEntity {
     @Override
     public void move(int amount, Direction direction) {
         switch (direction) {
-            case X:
-                moveX(amount);
-                break;
-            case Y:
+            case UP:
                 moveY(amount);
                 break;
+            case DOWN:
+                moveY(-amount);
+                break;
+            case LEFT:
+                moveX(-amount);
+            case RIGHT:
+                moveY(amount);
         }
     }
 }

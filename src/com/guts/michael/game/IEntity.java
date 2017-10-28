@@ -10,6 +10,8 @@ public interface IEntity {
 
     int getId();
 
+    Direction getOrientation();
+
     void moveX(int amount);
 
     void moveY(int amount);
