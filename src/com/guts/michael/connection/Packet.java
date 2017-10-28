@@ -34,6 +34,9 @@ public abstract class Packet implements IPacket {
         StringBuffer packetString = new StringBuffer();
         String line;
         while ((line = read.readLine()) != null && !line.equals("END")) {
+            if (line.equals("")) {
+                continue;
+            }
             packetString.append(line + '\n');
         }
         return Packet.fromString(packetString.toString());
