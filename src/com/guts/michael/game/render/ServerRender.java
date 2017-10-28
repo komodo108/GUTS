@@ -23,28 +23,47 @@ public class ServerRender extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         if(c != 0) {
+            g.clearRect(0, 0, getWidth(), getHeight());
             try {
                 loader = new SpriteLoader(32, 32, 8, 8);
-                for(int i = 0; i < game.getMap().getTiles()[0].length; i++) {
-                    for(int j = 0; j < game.getMap().getTiles().length; i++) {
-                        switch (game.getMap().getTiles()[i][j].getType()) {
-                            case WALL:
-                                //0
-                                g.drawImage(loader.getSprites(0), i*32, j*32, null);
-                                break;
-                            case SPACE:
-                                //1
-                                g.drawImage(loader.getSprites(1), i*32, j*32, null);
-                                break;
-                            case SAND:
-                                //1 (for now)
-                                g.drawImage(loader.getSprites(1), i*32, j*32, null);
-                                break;
-                            case GRASS:
-                                //2
-                                g.drawImage(loader.getSprites(2), i*32, j*32, null);
-                                break;
+                for(int x = 0; x < game.getMap().getTiles().length; x++) {
+                    for(int y = 0; y < game.getMap().getTiles()[x].length; y++) {
+                            switch (game.getMap().getTiles()[x][y].getType()) {
+                                case WALL:
+                                    //0
+                                    g.drawImage(loader.getSprites(0), x * 32, y * 32, null);
+                                    break;
+                                case SPACE:
+                                    //8
+                                    g.drawImage(loader.getSprites(8), x * 32, y * 32, null);
+                                    break;
+                                case SAND:
+                                    //8 (for now)
+                                    g.drawImage(loader.getSprites(8), x * 32, y * 32, null);
+                                    break;
+                                case GRASS:
+                                    //16
+                                    g.drawImage(loader.getSprites(16), x * 32, y * 32, null);
+                                    break;
+                            }
+                            if(game.getPlayer().getX() == x && game.getPlayer().getY() == y) {
+                                switch (game.getPlayer().getOrientation()) {
+                                    case RIGHT:
+                                        g.drawImage(loader.getSprites(17), x * 32, y * 32, null);
+                                        break;
+                                    case UP:
+                                        g.drawImage(loader.getSprites(2), x * 32, y * 32, null);
+                                        break;
+                                    case DOWN:
+                                        g.drawImage(loader.getSprites(9), x * 32, y * 32, null);
+                                        break;
+                                    case LEFT:
+                                        g.drawImage(loader.getSprites(25), x * 32, y * 32, null);
+                                        break;
+
+                                }
                         }
                     }
                 }
