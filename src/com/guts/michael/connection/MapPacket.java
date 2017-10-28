@@ -25,6 +25,10 @@ public class MapPacket extends Packet {
         return new MapPacket(new Map(tiles.toArray(new ITile[tiles.size()][])));
     }
 
+    public IMap getMap() {
+        return map;
+    }
+
     @Override
     public PacketType getType() {
         return PacketType.MAP;
