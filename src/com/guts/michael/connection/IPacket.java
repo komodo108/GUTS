@@ -10,5 +10,5 @@ public interface IPacket {
      */
     String asDataString();
 
-    String asString();
+    String asPacketString();
 }
