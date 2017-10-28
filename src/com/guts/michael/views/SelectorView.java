@@ -1,27 +1,27 @@
-package com.guts.michael;
+package com.guts.michael.views;
 
-import com.guts.michael.connection.Server;
+import com.guts.michael.Views;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Selector {
+public class SelectorView {
 
-    public static Selector selector;
+    public static SelectorView selector;
     private JFrame frame;
     private JButton client, server;
 
-    public static Selector getSelector() {
+    public static SelectorView getSelector() {
         if(selector == null) {
-            selector = new Selector();
+            selector = new SelectorView();
             return selector;
         } else {
             return selector;
         }
     }
 
-    private Selector() {
+    private SelectorView() {
         init();
     }
 
@@ -31,7 +31,7 @@ public class Selector {
         client.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ClientView.getClientView();
+                new ClientConnectionView();
                 frame.dispose();
             }
         });
@@ -41,7 +41,7 @@ public class Selector {
         server.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Server().start();
+                new ServerView();
                 frame.dispose();
             }
         });

@@ -1,5 +1,6 @@
-package com.guts.michael;
+package com.guts.michael.views;
 
+import com.guts.michael.Views;
 import com.guts.michael.connection.Client;
 
 import javax.swing.*;
@@ -8,9 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.UnknownHostException;
 
-public class ClientView {
+public class ClientConnectionView {
 
-    private static ClientView clientView;
+    private static ClientConnectionView clientView;
     private JFrame frame;
     private JTextField ip;
     private JButton go;
@@ -18,16 +19,7 @@ public class ClientView {
 
     private Client connection;
 
-    public static ClientView getClientView() {
-        if(clientView == null) {
-            clientView = new ClientView();
-            return clientView;
-        } else {
-            return clientView;
-        }
-    }
-
-    private ClientView() {
+    public ClientConnectionView() {
         init();
     }
 
