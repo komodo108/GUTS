@@ -73,4 +73,16 @@ public class Render extends JPanel {
             }
         }
     }
+
+    public void paintServerControls(Graphics g) {
+        Game game = Game.getInstance();
+        for(int x = 0; x < game.getMap().getTiles().length; x++) {
+            for (int y = 0; y < game.getMap().getTiles()[x].length; y++) {
+                if ((x > 0 && y == 0) || (x == 0 && y > 0)) {
+                    g.setColor(new Color(255, 0, 0, 50));
+                    g.fillRect(x * 32, y * 32, 32, 32);
+                }
+            }
+        }
+    }
 }

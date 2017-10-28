@@ -13,6 +13,7 @@ public class ServerRender extends Render {
         super.paintComponent(g);
         if (c != 0) {
             paintMap(g, false);
+            paintServerControls(g);
            // paintPlayer(g);
         } else {
             try {
