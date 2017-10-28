@@ -1,6 +1,5 @@
 package com.guts.michael.connection;
 
-import com.guts.michael.game.Direction;
 import com.guts.michael.game.Game;
 import com.guts.michael.game.IEntity;
 import com.guts.michael.game.IMap;

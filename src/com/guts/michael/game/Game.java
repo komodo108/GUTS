@@ -51,8 +51,8 @@ public class Game extends Observable {
     }
 
     public void setGame(Game game) {
-        this.map = map;
-        this.player = player;
+        this.map = game.getMap();
+        this.player = game.getPlayer();
         setChanged();
         notifyObservers();
     }

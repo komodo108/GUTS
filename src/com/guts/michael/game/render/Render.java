@@ -1,7 +1,6 @@
 package com.guts.michael.game.render;
 
 import com.guts.michael.game.Game;
-import com.guts.michael.game.IEntity;
 import com.guts.michael.game.SpriteLoader;
 
 import javax.swing.*;
