@@ -13,8 +13,8 @@ public class Server extends Thread {
     private JFrame frame;
     private JPanel panel;
 
-    private final int DEFAULT_WIDTH = 400;
-    private final int DEFAULT_HEIGHT = 400;
+    private final int DEFAULT_WIDTH = 800;
+    private final int DEFAULT_HEIGHT = 800;
 
     public Server() {
         panel = new JPanel();
