@@ -12,6 +12,8 @@ public abstract class Packet implements IPacket {
         String data = input.substring(input.indexOf('\n') + 1, input.length() - 1);
 
         switch (firstLine) {
+            case "MOVE":
+                return MovePacket.fromData(data);
             case "MAP":
                 return MapPacket.fromData(data);
             default:
