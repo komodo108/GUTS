@@ -40,12 +40,12 @@ public class MapPacket extends Packet {
         for (ITile[] row : map.getTiles()) {
             StringBuilder rowString = new StringBuilder();
             for (ITile tile : row) {
-                rowString.append(tile.getType().name());
-                rowString.append(" ");
+                rowString.append(tile.getType().getRepresentation());
             }
             data.append(rowString.toString().trim());
             data.append("\n");
         }
+        data.deleteCharAt(data.length() - 1);
         return data.toString();
     }
 }

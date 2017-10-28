@@ -1,6 +1,8 @@
 package com.guts.michael.connection;
 
 import com.guts.michael.Views;
+import com.guts.michael.game.IMap;
+import com.guts.michael.game.Map;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,6 +42,9 @@ public class Server extends Thread {
             BufferedWriter write = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
 
             // TODO: first thing should be to send the initial map
+            IMap map = Map.generateRandom();
+            write.write(new MapPacket(map).asPacketString());
+            write.flush();
 
             while (true) {
 

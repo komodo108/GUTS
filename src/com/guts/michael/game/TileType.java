@@ -2,8 +2,8 @@ package com.guts.michael.game;
 
 public enum TileType {
 
-    SPACE('X'),
-    WALL(' ');
+    SPACE(' '),
+    WALL('X');
 
     /*
     SPACE(' '),

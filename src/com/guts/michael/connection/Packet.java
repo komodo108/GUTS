@@ -1,5 +1,8 @@
 package com.guts.michael.connection;
 
+import com.guts.michael.game.IEntity;
+import com.guts.michael.game.IMap;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -8,7 +11,7 @@ import java.lang.reflect.Method;
 public abstract class Packet implements IPacket {
 
     @Override
-    public String asString() {
+    public String asPacketString() {
         return this.getType() + "\n" + this.asDataString() + "\n" + "END\n";
     }
 
