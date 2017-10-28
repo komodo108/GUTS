@@ -1,5 +1,6 @@
 package com.guts.michael.game.render;
 
+import com.guts.michael.game.Direction;
 import com.guts.michael.game.Game;
 import com.guts.michael.game.SpriteLoader;
 
@@ -49,6 +50,23 @@ public class ClientRender extends JPanel {
                                     g.drawImage(loader.getSprites(16), x * 32, y * 32, null);
                                     break;
                             }
+                        if(game.getPlayer().getX() == x && game.getPlayer().getY() == y) {
+                            switch (game.getPlayer().getOrientation()) {
+                                case RIGHT:
+                                    g.drawImage(loader.getSprites(17), x * 32, y * 32, null);
+                                    break;
+                                case UP:
+                                    g.drawImage(loader.getSprites(2), x * 32, y * 32, null);
+                                    break;
+                                case DOWN:
+                                    g.drawImage(loader.getSprites(9), x * 32, y * 32, null);
+                                    break;
+                                case LEFT:
+                                    g.drawImage(loader.getSprites(25), x * 32, y * 32, null);
+                                    break;
+
+                            }
+                        }
                         //}
                     }
                 }
