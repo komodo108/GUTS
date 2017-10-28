@@ -10,6 +10,8 @@ public class Game extends Observable {
     private int lastMoveAmount;
     private Direction lastMoveDirection;
 
+    public boolean isClientTurn = true;
+
     public static Game getInstance() {
         if (game == null) {
             game = new Game(Map.generateRandom(), new Entity(0, EntityType.PLAYER, 4, 4, Direction.RIGHT));
@@ -22,7 +24,32 @@ public class Game extends Observable {
         this.player = player;
     }
 
-    public void movePlayer(int amount, Direction direction) {
+    public void movePlayer(int amount, Direction direction) throws IllegalMoveException {
+        if (!isClientTurn) {
+            return;
+        }
+        int newX = player.getX();
+        int newY = player.getY();
+        switch (direction) {
+            case UP:
+                newY -= amount;
+                break;
+            case DOWN:
+                newY += amount;
+                break;
+            case LEFT:
+                newX -= amount;
+                break;
+            case RIGHT:
+                newX += amount;
+                break;
+        }
+        if (newX < 0 || newY < 0 || newX >= map.getTiles().length || newY >= map.getTiles()[0].length) {
+            throw new IllegalMoveException();
+        }
+        if (map.getTileAt(newX, newY).getType() == TileType.WALL) {
+            throw new IllegalMoveException();
+        }
         lastMoveAmount = amount;
         lastMoveDirection = direction;
         player.move(amount, direction);
@@ -39,12 +66,18 @@ public class Game extends Observable {
     }
 
     public void shiftRow(int row, int amount) {
+        if (isClientTurn) {
+            return;
+        }
         map.shiftRow(row, amount);
         setChanged();
         notifyObservers("player2finished");
     }
 
     public void shiftColumn(int column, int amount) {
+        if (isClientTurn) {
+            return;
+        }
         map.shiftColumn(column, amount);
         setChanged();
         notifyObservers("player2finished");

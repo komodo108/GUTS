@@ -1,6 +1,7 @@
 package com.guts.michael.connection;
 
 import com.guts.michael.game.Game;
+import com.guts.michael.game.IllegalMoveException;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -15,6 +16,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
     @Override
     public void run() {
         Game.getInstance().addObserver(this);
+        Game.getInstance().isClientTurn = true;
 
         try {
             ServerSocket serverSocket = new ServerSocket(26789);
@@ -42,10 +44,13 @@ public class Server extends java.util.Observable implements Runnable, Observer {
                     if (packet instanceof MovePacket) {
                         MovePacket move = (MovePacket) packet;
                         Game.getInstance().movePlayer(move.getAmount(), move.getDirection());
+                        Game.getInstance().isClientTurn = false;
                     }
 
                 } catch (CorruptedPacketException e) {
                     System.out.println("received corrupted packet");
+                } catch (IllegalMoveException e) {
+                    e.printStackTrace();
                 }
             }
         } catch (IOException e) {
@@ -91,6 +96,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
         setChanged();
         notifyObservers();
         if (arg != null && arg.equals("player2finished")) {
+            Game.getInstance().isClientTurn = true;
             writeMap();
             writeEntity();
             writeFinished();
