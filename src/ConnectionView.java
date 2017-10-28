@@ -1,7 +1,10 @@
+import com.guts.michael.connection.Connection;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.UnknownHostException;
 
 public class ConnectionView {
 
@@ -11,7 +14,7 @@ public class ConnectionView {
     private JButton go;
     private JLabel error;
 
-    private Connection connection = new Connection();
+    private Connection connection;
 
     private final String DEFAULT_NAME = "Enter Server IP";
     private final int DEFAULT_WIDTH = 400;
@@ -33,6 +36,7 @@ public class ConnectionView {
     }
 
     private void init() {
+
         error = new JLabel();
         error.setBounds(DEFAULT_WIDTH/2 - 40, DEFAULT_HEIGHT/2 + 40, 80, 90);
 
@@ -46,14 +50,10 @@ public class ConnectionView {
         go.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switch (connection.init(ip.getText())) {
-                    case 0:
-                        //Connected
-                        break;
-                    case 1:
-                        //Something happened
-                        error.setText(format("There was an error"));
-                        break;
+                try {
+                    connection = new Connection(ip.getText());
+                } catch (UnknownHostException e1) {
+                    e1.printStackTrace();
                 }
             }
         });
