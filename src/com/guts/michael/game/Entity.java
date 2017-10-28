@@ -55,15 +55,17 @@ public class Entity implements IEntity {
     public void move(int amount, Direction direction) {
         switch (direction) {
             case UP:
-                moveY(amount);
+                moveY(-amount);
                 break;
             case DOWN:
-                moveY(-amount);
+                moveY(amount);
                 break;
             case LEFT:
                 moveX(-amount);
+                break;
             case RIGHT:
-                moveY(amount);
+                moveX(amount);
+                break;
         }
     }
 }

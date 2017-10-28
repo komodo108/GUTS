@@ -9,7 +9,7 @@ import static java.awt.event.KeyEvent.*;
 public class KeyListen extends Observable implements KeyListener {
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyReleased(KeyEvent e) {
         switch(e.getKeyCode()) {
             case VK_LEFT:
                 Game.getInstance().movePlayer(1, Direction.LEFT);
@@ -27,8 +27,8 @@ public class KeyListen extends Observable implements KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) { }
+    public void keyTyped(KeyEvent e) { }
 
     @Override
-    public void keyReleased(KeyEvent e) { }
+    public void keyPressed(KeyEvent e) { }
 }

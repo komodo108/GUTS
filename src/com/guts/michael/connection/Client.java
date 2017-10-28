@@ -1,5 +1,6 @@
 package com.guts.michael.connection;
 
+import com.guts.michael.game.Direction;
 import com.guts.michael.game.Game;
 import com.guts.michael.game.IEntity;
 import com.guts.michael.game.IMap;
@@ -16,6 +17,9 @@ public class Client extends Observable implements Runnable, Observer {
     private InetAddress ip;
     private IMap map;
     private IEntity entity;
+    private Socket s;
+    private BufferedReader read;
+    private BufferedWriter write;
 
     public Client(String ip) throws UnknownHostException {
         this.ip = InetAddress.getByName(ip);
@@ -26,9 +30,9 @@ public class Client extends Observable implements Runnable, Observer {
         Game.getInstance().addObserver(this);
 
         try {
-            Socket s = new Socket(ip, 26789);
-            BufferedReader read = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            BufferedWriter write = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+            s = new Socket(ip, 26789);
+            write = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+            read = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
             // Main client loop
             while (true) {
@@ -41,7 +45,7 @@ public class Client extends Observable implements Runnable, Observer {
                         break;
                     }
 
-                    System.out.println("received " + packet.getType().name());
+                    System.out.println("client received " + packet.getType().name());
 
                     // Handle Packet
                     if (packet instanceof MapPacket) {
@@ -64,6 +68,14 @@ public class Client extends Observable implements Runnable, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        if (arg != null && arg.equals("player1finished")) {
+            try {
+                write.write(new MovePacket(Game.getInstance().getLastMoveDirection(), Game.getInstance().getLastMoveAmount()).asDataString());
+                write.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         setChanged();
         notifyObservers();
     }

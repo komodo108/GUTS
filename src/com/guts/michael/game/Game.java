@@ -5,6 +5,10 @@ import java.util.Observable;
 public class Game extends Observable {
 
     private static Game game;
+    private IMap map;
+    private IEntity player;
+    private int lastMoveAmount;
+    private Direction lastMoveDirection;
 
     public static Game getInstance() {
         if (game == null) {
@@ -13,18 +17,17 @@ public class Game extends Observable {
         return game;
     }
 
-    private IMap map;
-    private IEntity player;
-
     public Game(IMap map, IEntity player) {
         this.map = map;
         this.player = player;
     }
 
     public void movePlayer(int amount, Direction direction) {
+        lastMoveAmount = amount;
+        lastMoveDirection = direction;
         player.move(amount, direction);
         setChanged();
-        notifyObservers();
+        notifyObservers("player1finished");
     }
 
     public IMap getMap() {
@@ -52,5 +55,13 @@ public class Game extends Observable {
         this.player = player;
         setChanged();
         notifyObservers();
+    }
+
+    public int getLastMoveAmount() {
+        return lastMoveAmount;
+    }
+
+    public Direction getLastMoveDirection() {
+        return lastMoveDirection;
     }
 }

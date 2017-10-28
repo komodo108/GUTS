@@ -36,7 +36,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
                         break;
                     }
 
-                    System.out.println("received " + packet.getType().name());
+                    System.out.println("server received " + packet.getType().name());
 
                     if (packet instanceof MovePacket) {
                         MovePacket move = (MovePacket) packet;

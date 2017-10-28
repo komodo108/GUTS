@@ -6,6 +6,8 @@ import com.guts.michael.game.render.ClientRender;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.net.UnknownHostException;
 import java.util.Observer;
 
@@ -36,7 +38,7 @@ public class ClientView implements Observer {
         client.addObserver(this);
         new Thread(client).start();
 
-        clientRender.addKeyListener(keyListen);
+        frame.addKeyListener(keyListen);
 
         frame.repaint();
     }
