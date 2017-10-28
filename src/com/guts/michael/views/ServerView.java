@@ -15,8 +15,8 @@ public class ServerView implements Observer {
     private ServerRender serverRender;
     private KeyListen keyListen = new KeyListen();
 
-    private final int DEFAULT_WIDTH = 800;
-    private final int DEFAULT_HEIGHT = 800;
+    private final int DEFAULT_WIDTH = 736;
+    private final int DEFAULT_HEIGHT = 736;
 
     public ServerView() {
         serverRender = new ServerRender();

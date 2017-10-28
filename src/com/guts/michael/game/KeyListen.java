@@ -8,46 +8,27 @@ import static java.awt.event.KeyEvent.*;
 
 public class KeyListen extends Observable implements KeyListener {
 
-    private char key;
-
-    public char getKey() {
-        return key;
-    }
-
-    private void update() {
-        setChanged();
-        notifyObservers();
-    }
-
     @Override
     public void keyTyped(KeyEvent e) {
         switch(e.getKeyCode()) {
             case VK_LEFT:
-                key = 'l';
-                update();
+                Game.getInstance().movePlayer(1, Direction.LEFT);
                 break;
             case VK_UP:
-                key = 'u';
-                update();
+                Game.getInstance().movePlayer(1, Direction.UP);
                 break;
             case VK_RIGHT:
-                key = 'r';
-                update();
+                Game.getInstance().movePlayer(1, Direction.RIGHT);
                 break;
             case VK_DOWN:
-                key = 'd';
-                update();
+                Game.getInstance().movePlayer(1, Direction.DOWN);
                 break;
         }
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
+    public void keyPressed(KeyEvent e) { }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
+    public void keyReleased(KeyEvent e) { }
 }
