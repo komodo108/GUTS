@@ -19,11 +19,18 @@ public class Server extends Thread {
             // Main server loop
             while (true) {
 
-                // Read packet
-                IPacket packet = Packet.readNextPacket(read);
+                try {
 
-                if (packet instanceof MovePacket) {
-                    // TODO: handle move packet here
+                    // Read packet
+                    IPacket packet = Packet.readNextPacket(read);
+
+                    System.out.println("received " + packet.getType().name());
+
+                    if (packet instanceof MovePacket) {
+                        // TODO: handle move packet here
+                    }
+                } catch (CorruptedPacketException e) {
+                    System.out.println("received corrupted packet");
                 }
             }
         } catch (IOException e) {

@@ -12,13 +12,18 @@ public class MovePacket extends Packet {
         this.amount = amount;
     }
 
-    public static MovePacket fromData(String data) {
+    public static MovePacket fromDataString(String data) {
         String[] split = data.split(" ");
         return new MovePacket(Direction.valueOf(split[0]), Integer.valueOf(split[1]));
     }
 
     @Override
-    public String asString() {
+    public PacketType getType() {
+        return PacketType.MOVE;
+    }
+
+    @Override
+    public String asDataString() {
         return direction.toString() + " " + amount;
     }
 }

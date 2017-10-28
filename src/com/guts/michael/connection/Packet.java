@@ -2,25 +2,33 @@ package com.guts.michael.connection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public abstract class Packet implements IPacket {
+
+    @Override
+    public String asString() {
+        return this.getType() + "\n" + this.asDataString() + "\n" + "END\n";
+    }
 
     /**
      * Parse a packet.
      * @param input the string to parse
      * @return the packet
+     * @throws CorruptedPacketException if the packet could not be parsed
      */
-    public static IPacket fromString(String input) {
+    public static IPacket fromDataString(String input) throws CorruptedPacketException {
         String firstLine = input.substring(0, input.indexOf('\n'));
         String data = input.substring(input.indexOf('\n') + 1, input.length() - 1);
 
-        switch (firstLine) {
-            case "MOVE":
-                return MovePacket.fromData(data);
-            case "MAP":
-                return MapPacket.fromData(data);
-            default:
-                return null;
+        try {
+            PacketType type = PacketType.valueOf(firstLine);
+            Method method = type.getPacketClass().getMethod("fromDataString", String.class);
+
+            return (Packet) method.invoke(null, data);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | IllegalArgumentException e) {
+            throw new CorruptedPacketException();
         }
     }
 
@@ -31,14 +39,15 @@ public abstract class Packet implements IPacket {
      * @throws IOException if there is an IO error
      */
     public static IPacket readNextPacket(BufferedReader read) throws IOException {
-        StringBuffer packetString = new StringBuffer();
+        StringBuilder packetString = new StringBuilder();
         String line;
         while ((line = read.readLine()) != null && !line.equals("END")) {
             if (line.equals("")) {
                 continue;
             }
-            packetString.append(line + '\n');
+            packetString.append(line);
+            packetString.append('\n');
         }
-        return Packet.fromString(packetString.toString());
+        return Packet.fromDataString(packetString.toString());
     }
 }
