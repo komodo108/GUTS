@@ -27,28 +27,28 @@ public class ClientRender extends JPanel {
             g.fillRect(0, 0, 900, 900);
             try {
                 loader = new SpriteLoader(32, 32, 8, 8);
-                for(int i = 0; i < game.getMap().getTiles()[0].length; i++) {
-                    for(int j = 0; j < game.getMap().getTiles().length; i++) {
-                        if((int)(game.getPlayer().getX()/32) == i && (int)(game.getPlayer().getY()/32) == j) {
-                            System.out.println("Tile is: " + game.getMap().getTiles()[i][j].getType());
-                            switch (game.getMap().getTiles()[i][j].getType()) {
+                for(int x = 0; x < game.getMap().getTiles().length; x++) {
+                    for(int y = 0; y < game.getMap().getTiles()[x].length; y++) {
+                        if(game.getPlayer().getX() == x && game.getPlayer().getY() == y) {
+                            System.out.println("Tile is: " + game.getMap().getTiles()[x][y].getType());
+                            switch (game.getMap().getTiles()[x][y].getType()) {
                                 case WALL:
                                     //0
-                                    g.drawImage(loader.getSprites(0), i * 32 + 100, j * 32 + 100, null);
+                                    g.drawImage(loader.getSprites(0), x * 32 + 100, y * 32 + 100, null);
                                     g.drawLine(100, 0, 100, 900);
                                     g.drawLine(0, 100, 900, 100);
                                     break;
                                 case SPACE:
                                     //1
-                                    g.drawImage(loader.getSprites(1), i * 32, j * 32, null);
+                                    g.drawImage(loader.getSprites(1), x * 32, y * 32, null);
                                     break;
                                 case SAND:
                                     //1 (for now)
-                                    g.drawImage(loader.getSprites(1), i * 32, j * 32, null);
+                                    g.drawImage(loader.getSprites(1), x * 32, y * 32, null);
                                     break;
                                 case GRASS:
                                     //2
-                                    g.drawImage(loader.getSprites(2), i * 32, j * 32, null);
+                                    g.drawImage(loader.getSprites(2), x * 32, y * 32, null);
                                     break;
                             }
                         }
