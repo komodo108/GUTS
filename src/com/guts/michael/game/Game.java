@@ -4,6 +4,15 @@ import java.util.Observable;
 
 public class Game extends Observable {
 
+    private static Game game;
+
+    public static Game getInstance() {
+        if (game == null) {
+            game = new Game(Map.generateRandom(), new Entity(0, EntityType.PLAYER, 4, 4, Direction.RIGHT));
+        }
+        return game;
+    }
+
     private IMap map;
     private IEntity player;
 
@@ -29,11 +38,18 @@ public class Game extends Observable {
     public void shiftRow(int row, int amount) {
         map.shiftRow(row, amount);
         setChanged();
-        notifyObservers();
+        notifyObservers("player2finished");
     }
 
     public void shiftColumn(int column, int amount) {
         map.shiftColumn(column, amount);
+        setChanged();
+        notifyObservers("player2finished");
+    }
+
+    public void setGame(Game game) {
+        this.map = map;
+        this.player = player;
         setChanged();
         notifyObservers();
     }

@@ -1,6 +1,8 @@
 package com.guts.michael.connection;
 
-import com.guts.michael.game.*;
+import com.guts.michael.game.Game;
+import com.guts.michael.game.IEntity;
+import com.guts.michael.game.IMap;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -15,23 +17,13 @@ public class Client extends Observable implements Runnable, Observer {
     private IMap map;
     private IEntity entity;
 
-    //
-    private static Game game = new Game(Map.generateRandom(), new Entity(0, EntityType.PLAYER, 4, 4, Direction.RIGHT));
-
-    private int inital = 0;
-
     public Client(String ip) throws UnknownHostException {
         this.ip = InetAddress.getByName(ip);
     }
 
-    //
-    public static Game getGame() {
-        return game;
-    }
-
     @Override
     public void run() {
-        game.addObserver(this);
+        Game.getInstance().addObserver(this);
 
         try {
             Socket s = new Socket(ip, 26789);
@@ -41,10 +33,6 @@ public class Client extends Observable implements Runnable, Observer {
             // Main client loop
             while (true) {
                 try {
-                    if (inital == 2) {
-                        game = new Game(map, entity);
-                    }
-
                     // Read packet
                     IPacket packet = Packet.readNextPacket(read);
 
@@ -56,21 +44,13 @@ public class Client extends Observable implements Runnable, Observer {
                     System.out.println("received " + packet.getType().name());
 
                     // Handle Packet
-                    if (packet instanceof MapPacket && inital < 3) {
+                    if (packet instanceof MapPacket) {
                         map = ((MapPacket) packet).getMap();
-                        inital++;
-
-                        setChanged();
-                        notifyObservers();
-                    } else if (packet instanceof EntityPacket && inital < 3) {
+                    } else if (packet instanceof EntityPacket) {
                         entity = ((EntityPacket) packet).getEntity();
-                        inital++;
-
-                        setChanged();
-                        notifyObservers();
+                    } else if (packet instanceof FinishedPacket) {
+                        Game.getInstance().setGame(new Game(map, entity));
                     }
-
-                    //Get user input
 
 
                 } catch (CorruptedPacketException e) {

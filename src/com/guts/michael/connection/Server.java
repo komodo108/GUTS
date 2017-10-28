@@ -1,6 +1,6 @@
 package com.guts.michael.connection;
 
-import com.guts.michael.game.*;
+import com.guts.michael.game.Game;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -10,16 +10,11 @@ import java.util.Observer;
 
 public class Server extends java.util.Observable implements Runnable, Observer {
 
-    private Game game;
     private BufferedWriter write;
-
-    public Server() {
-        game = new Game(Map.generateRandom(), new Entity(0, EntityType.PLAYER, 4, 4, Direction.RIGHT));
-    }
 
     @Override
     public void run() {
-        game.addObserver(this);
+        Game.getInstance().addObserver(this);
 
         try {
             ServerSocket serverSocket = new ServerSocket(26789);
@@ -27,10 +22,8 @@ public class Server extends java.util.Observable implements Runnable, Observer {
             BufferedReader read = new BufferedReader(new InputStreamReader(s.getInputStream()));
             write = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
 
-            // TODO: first thing should be to send the initial map
-            // TODO: Also send the initial entity state, so the client can make a Game
-            writeMap();
-            writeEntity();
+            // Write initial map and state
+            writeCurrentGame();
 
             while (true) {
 
@@ -47,7 +40,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
 
                     if (packet instanceof MovePacket) {
                         MovePacket move = (MovePacket) packet;
-                        game.movePlayer(move.getAmount(), move.getDirection());
+                        Game.getInstance().movePlayer(move.getAmount(), move.getDirection());
                     }
 
                 } catch (CorruptedPacketException e) {
@@ -61,7 +54,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
 
     public void writeMap() {
         try {
-            write.write(new MapPacket(game.getMap()).asPacketString());
+            write.write(new MapPacket(Game.getInstance().getMap()).asPacketString());
             write.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -70,20 +63,36 @@ public class Server extends java.util.Observable implements Runnable, Observer {
 
     public void writeEntity() {
         try {
-            write.write(new EntityPacket(game.getPlayer()).asPacketString());
+            write.write(new EntityPacket(Game.getInstance().getPlayer()).asPacketString());
             write.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public synchronized void movePlayer(int amount, Direction direction) {
-        game.movePlayer(amount, direction);
+    public void writeFinished() {
+        try {
+            write.write(new FinishedPacket().asPacketString());
+            write.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeCurrentGame() {
+        writeMap();
+        writeEntity();
+        writeFinished();
     }
 
     @Override
     public void update(Observable o, Object arg) {
         setChanged();
         notifyObservers();
+        if (arg != null && arg.equals("player2finished")) {
+            writeMap();
+            writeEntity();
+            writeFinished();
+        }
     }
 }

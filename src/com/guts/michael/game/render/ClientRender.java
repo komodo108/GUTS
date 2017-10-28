@@ -1,22 +1,12 @@
 package com.guts.michael.game.render;
 
-import com.guts.michael.game.Game;
-import com.guts.michael.game.SpriteLoader;
-
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
-import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 
-public class ClientRender extends JPanel {
+public class ClientRender extends Render implements Observer {
 
     private int c;
-    private SpriteLoader loader;
-    private Game game;
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
 
     //Sprite is 32*32
 
@@ -24,38 +14,7 @@ public class ClientRender extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if(c != 0) {
-            g.clearRect(0, 0, getWidth(), getHeight());
-            try {
-                loader = new SpriteLoader(32, 32, 8, 8);
-                for(int x = 0; x < game.getMap().getTiles().length; x++) {
-                    for(int y = 0; y < game.getMap().getTiles()[x].length; y++) {
-                        //if(game.getPlayer().getX() == x && game.getPlayer().getY() == y) {
-                            System.out.println("Tile is: " + game.getMap().getTiles()[x][y].getType());
-                            switch (game.getMap().getTiles()[x][y].getType()) {
-                                case WALL:
-                                    //0
-                                    g.drawImage(loader.getSprites(0), x * 32, y * 32, null);
-                                    break;
-                                case SPACE:
-                                    //8
-                                    g.drawImage(loader.getSprites(8), x * 32, y * 32, null);
-                                    break;
-                                case SAND:
-                                    //8 (for now)
-                                    g.drawImage(loader.getSprites(8), x * 32, y * 32, null);
-                                    break;
-                                case GRASS:
-                                    //16
-                                    g.drawImage(loader.getSprites(16), x * 32, y * 32, null);
-                                    break;
-                            }
-                        //}
-                    }
-                }
-            } catch (IOException e) {
-                System.err.println("Spritesheet not found!!");
-                System.exit(1);
-            }
+            paintMap(g);
         } else {
             String s = "Connecting...";
             g.setFont(new Font("Arial", 1, 24));
@@ -64,4 +23,8 @@ public class ClientRender extends JPanel {
         }
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        repaint();
+    }
 }

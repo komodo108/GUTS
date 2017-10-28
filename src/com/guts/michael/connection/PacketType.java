@@ -4,7 +4,8 @@ public enum PacketType {
 
     MOVE(MovePacket.class),
     MAP(MapPacket.class),
-    ENTITY(EntityPacket.class);
+    ENTITY(EntityPacket.class),
+    FINISHED(FinishedPacket.class);
 
     private Class<? extends Packet> type;
 
