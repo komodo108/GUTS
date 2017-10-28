@@ -1,10 +1,8 @@
 package com.guts.michael.game.render;
 
 import java.awt.*;
-import java.util.Observable;
-import java.util.Observer;
 
-public class ClientRender extends Render implements Observer {
+public class ClientRender extends Render {
 
     private int c;
 
@@ -22,10 +20,5 @@ public class ClientRender extends Render implements Observer {
             g.drawString(s, getWidth()/2 - ((s.length()*24)/4), getHeight()/2 - 12);
             c++;
         }
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        repaint();
     }
 }
