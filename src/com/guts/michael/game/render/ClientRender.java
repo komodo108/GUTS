@@ -14,7 +14,7 @@ public class ClientRender extends Render implements Observer {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if(c != 0) {
-            paintMap(g);
+            paintMap(g, true);
             paintPlayer(g);
         } else {
             String s = "Connecting...";

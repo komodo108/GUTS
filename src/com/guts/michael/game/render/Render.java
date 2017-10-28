@@ -10,30 +10,36 @@ import java.io.IOException;
 
 public class Render extends JPanel {
 
-    public void paintMap(Graphics g) {
+    private SpriteLoader loader;
+
+    public void paintMap(Graphics g, boolean isClient) {
         Game game = Game.getInstance();
         g.clearRect(0, 0, getWidth(), getHeight());
         try {
-            SpriteLoader loader = new SpriteLoader(32, 32, 8, 8);
+            loader = new SpriteLoader(32, 32, 8, 8);
             for(int x = 0; x < game.getMap().getTiles().length; x++) {
                 for(int y = 0; y < game.getMap().getTiles()[x].length; y++) {
-                    switch (game.getMap().getTiles()[x][y].getType()) {
-                        case WALL:
-                            //0
-                            g.drawImage(loader.getSprites(0), x * 32, y * 32, null);
-                            break;
-                        case SPACE:
-                            //8
-                            g.drawImage(loader.getSprites(8), x * 32, y * 32, null);
-                            break;
-                        case SAND:
-                            //8 (for now)
-                            g.drawImage(loader.getSprites(8), x * 32, y * 32, null);
-                            break;
-                        case GRASS:
-                            //16
-                            g.drawImage(loader.getSprites(16), x * 32, y * 32, null);
-                            break;
+                    if(isClient && game.getPlayer().getX() == x && game.getPlayer().getY() == y) {
+                        switch (game.getMap().getTiles()[x][y].getType()) {
+                            case WALL:
+                                //0
+                                g.drawImage(loader.getSprites(0), x * 32, y * 32, null);
+                                break;
+                            case SPACE:
+                                //8
+                                g.drawImage(loader.getSprites(8), x * 32, y * 32, null);
+                                break;
+                            case SAND:
+                                //8 (for now)
+                                g.drawImage(loader.getSprites(8), x * 32, y * 32, null);
+                                break;
+                            case GRASS:
+                                //16
+                                g.drawImage(loader.getSprites(16), x * 32, y * 32, null);
+                                break;
+                        }
+                    } else if (isClient) {
+                        g.drawRect(x*32, y*32, 32, 32);
                     }
                 }
             }
@@ -44,7 +50,27 @@ public class Render extends JPanel {
     }
 
     public void paintPlayer(Graphics g) {
-        IEntity player = Game.getInstance().getPlayer();
-        // TODO: paint player
+        Game game = Game.getInstance();
+        for(int x = 0; x < game.getMap().getTiles().length; x++) {
+            for (int y = 0; y < game.getMap().getTiles()[x].length; y++) {
+                if (game.getPlayer().getX() == x && game.getPlayer().getY() == y) {
+                    switch (game.getPlayer().getOrientation()) {
+                        case RIGHT:
+                            g.drawImage(loader.getSprites(17), x * 32, y * 32, null);
+                            break;
+                        case UP:
+                            g.drawImage(loader.getSprites(2), x * 32, y * 32, null);
+                            break;
+                        case DOWN:
+                            g.drawImage(loader.getSprites(9), x * 32, y * 32, null);
+                            break;
+                        case LEFT:
+                            g.drawImage(loader.getSprites(25), x * 32, y * 32, null);
+                            break;
+
+                    }
+                }
+            }
+        }
     }
 }
