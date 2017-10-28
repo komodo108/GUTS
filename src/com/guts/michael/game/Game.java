@@ -81,7 +81,13 @@ public class Game extends Observable {
         if (isClientTurn) {
             return;
         }
+        // Shift row
         map.shiftRow(row, amount);
+        // Move player if necessary
+        if (map.getTileAt(player.getX(), player.getY()).getType() == TileType.WALL) {
+            player.setX((player.getX() + amount) % map.getTiles().length);
+        }
+        // Set changed
         setChanged();
         notifyObservers("player2finished");
     }
@@ -90,7 +96,13 @@ public class Game extends Observable {
         if (isClientTurn) {
             return;
         }
+        // Shift column
         map.shiftColumn(column, amount);
+        // Move player if necessary
+        if (map.getTileAt(player.getX(), player.getY()).getType() == TileType.WALL) {
+            player.setY((player.getY() + amount) % map.getTiles()[player.getX()].length);
+        }
+        // Set changed
         setChanged();
         notifyObservers("player2finished");
     }

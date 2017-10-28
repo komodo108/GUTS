@@ -6,6 +6,10 @@ public interface IEntity {
 
     int getY();
 
+    void setX(int x);
+
+    void setY(int y);
+
     EntityType getType();
 
     int getId();
