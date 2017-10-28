@@ -29,7 +29,6 @@ public class SelectorView {
         client.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("New Client Made!");
                 new ClientConnectionView();
                 frame.dispose();
             }
@@ -40,7 +39,6 @@ public class SelectorView {
         server.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("New Server Made!");
                 new ServerView();
                 frame.dispose();
             }
