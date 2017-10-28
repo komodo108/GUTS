@@ -1,6 +1,11 @@
 package com.guts.michael.game;
 
 public enum TileType {
+
+    SPACE('X'),
+    WALL(' ');
+
+    /*
     SPACE(' '),
     HORIZONTAL_LINE('─'),
     VERTICAL_LINE('│'),
@@ -13,6 +18,7 @@ public enum TileType {
     HORIZONTAL_AND_UP('┴'),
     HORIZONTAL_AND_DOWN('┬'),
     VERTICAL_AND_HORIZONTAL('┼');
+    */
 
     private char representation;
 
