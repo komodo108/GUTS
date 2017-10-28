@@ -38,6 +38,7 @@ public class ClientConnectionView {
             public void actionPerformed(ActionEvent e) {
                 try {
                     ClientView client = new ClientView(ip.getText());
+                    frame.dispose();
                 } catch (UnknownHostException e1) {
                     error.setText(format("There was an error"));
                     e1.printStackTrace();
