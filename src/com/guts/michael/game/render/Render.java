@@ -39,7 +39,8 @@ public class Render extends JPanel {
                                 break;
                         }
                     } else if (isClient) {
-                        g.drawRect(x*32, y*32, 32, 32);
+                        g.setColor(Color.BLACK);
+                        g.fillRect(x*32, y*32, 32, 32);
                     }
                 }
             }

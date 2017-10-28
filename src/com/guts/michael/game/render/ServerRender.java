@@ -13,7 +13,7 @@ public class ServerRender extends Render {
         super.paintComponent(g);
         if (c != 0) {
             paintMap(g, false);
-            paintPlayer(g);
+           // paintPlayer(g);
         } else {
             try {
                 String s = "Connect a client on: " + InetAddress.getLocalHost().getHostAddress();
