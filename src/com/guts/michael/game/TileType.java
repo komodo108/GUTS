@@ -1,9 +1,14 @@
 package com.guts.michael.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum TileType {
 
-    SPACE(' '),
-    WALL('X');
+    WALL('X', 2),
+    SPACE(' ', 2),
+    GRASS('G', 1),
+    SAND('S', 1);
 
     /*
     SPACE(' '),
@@ -21,13 +26,19 @@ public enum TileType {
     */
 
     private char representation;
+    private int probabilityWeight;
 
-    TileType(char representation) {
+    TileType(char representation, int probabilityWeight) {
         this.representation = representation;
+        this.probabilityWeight = probabilityWeight;
     }
 
     public char getRepresentation() {
         return representation;
+    }
+
+    public int getProbabilityWeight() {
+        return probabilityWeight;
     }
 
     public static TileType fromRepresentation(char representation) {
@@ -37,5 +48,15 @@ public enum TileType {
             }
         }
         return null;
+    }
+
+    public static TileType[] getCumulativeArray() {
+        List<TileType> types = new ArrayList<>();
+        for (TileType type : values()) {
+            for (int i = 0; i < type.probabilityWeight; i++) {
+                types.add(type);
+            }
+        }
+        return types.toArray(new TileType[0]);
     }
 }
