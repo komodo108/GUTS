@@ -32,7 +32,7 @@ public class ClientView implements Observer {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        new Client(ip, this).run();
+        new Thread(new Client(ip, this)).start();
     }
 
     @Override

@@ -31,7 +31,7 @@ public class ServerView implements Observer {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        new Server(this).run();
+        new Thread(new Server(this)).start();
     }
 
     @Override
