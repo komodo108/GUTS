@@ -32,6 +32,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
                     IPacket packet = Packet.readNextPacket(read);
 
                     if (packet == null) {
+                        System.out.println("server closed because it received null packet");
                         s.close();
                         break;
                     }

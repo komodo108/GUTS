@@ -70,7 +70,7 @@ public class Client extends Observable implements Runnable, Observer {
     public void update(Observable o, Object arg) {
         if (arg != null && arg.equals("player1finished")) {
             try {
-                write.write(new MovePacket(Game.getInstance().getLastMoveDirection(), Game.getInstance().getLastMoveAmount()).asDataString());
+                write.write(new MovePacket(Game.getInstance().getLastMoveDirection(), Game.getInstance().getLastMoveAmount()).asPacketString());
                 write.flush();
             } catch (IOException e) {
                 e.printStackTrace();
