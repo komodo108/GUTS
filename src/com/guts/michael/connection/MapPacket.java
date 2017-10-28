@@ -17,8 +17,8 @@ public class MapPacket extends Packet {
         List<ITile[]> tiles = new ArrayList<>();
         for (String row : data.split("\n")) {
             List<ITile> tileRow = new ArrayList<>();
-            for (String tile : row.split(" ")) {
-                tileRow.add(new Tile(TileType.fromStringRepresentation(tile)));
+            for (char tile : row.toCharArray()) {
+                tileRow.add(new Tile(TileType.fromRepresentation(tile)));
             }
             tiles.add(tileRow.toArray(new ITile[tileRow.size()]));
         }
