@@ -19,19 +19,24 @@ public class ClientRender extends JPanel {
     }
 
     //Sprite is 32*32
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         if(c != 0) {
+            g.setColor(Color.RED);
+            g.fillRect(0, 0, 900, 900);
             try {
                 loader = new SpriteLoader(32, 32, 8, 8);
                 for(int i = 0; i < game.getMap().getTiles()[0].length; i++) {
                     for(int j = 0; j < game.getMap().getTiles().length; i++) {
                         if((int)(game.getPlayer().getX()/32) == i && (int)(game.getPlayer().getY()/32) == j) {
+                            System.out.println("Tile is: " + game.getMap().getTiles()[i][j].getType());
                             switch (game.getMap().getTiles()[i][j].getType()) {
                                 case WALL:
                                     //0
-                                    g.drawImage(loader.getSprites(0), i * 32, j * 32, null);
+                                    g.drawImage(loader.getSprites(0), i * 32 + 100, j * 32 + 100, null);
+                                    g.drawLine(100, 0, 100, 900);
+                                    g.drawLine(0, 100, 900, 100);
                                     break;
                                 case SPACE:
                                     //1

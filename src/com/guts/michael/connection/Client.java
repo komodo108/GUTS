@@ -7,13 +7,16 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Observable;
+import java.util.Observer;
 
-public class Client extends Observable implements Runnable {
+public class Client extends Observable implements Runnable, Observer {
 
     private InetAddress ip;
     private IMap map;
     private IEntity entity;
-    private Game game;
+
+    //
+    private static Game game = new Game(Map.generateRandom(), new Entity(0, EntityType.PLAYER, 4, 4, Direction.RIGHT));
 
     private int inital = 0;
 
@@ -21,8 +24,15 @@ public class Client extends Observable implements Runnable {
         this.ip = InetAddress.getByName(ip);
     }
 
+    //
+    public static Game getGame() {
+        return game;
+    }
+
     @Override
     public void run() {
+        game.addObserver(this);
+
         try {
             Socket s = new Socket(ip, 26789);
             BufferedReader read = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -70,5 +80,11 @@ public class Client extends Observable implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        setChanged();
+        notifyObservers();
     }
 }

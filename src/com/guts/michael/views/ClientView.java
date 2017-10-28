@@ -38,6 +38,7 @@ public class ClientView implements Observer {
         new Thread(client).start();
 
         clientRender.addKeyListener(keyListen);
+        clientRender.setGame(Client.getGame());
 
         frame.repaint();
     }

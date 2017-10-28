@@ -19,6 +19,8 @@ public class Server extends java.util.Observable implements Runnable, Observer {
 
     @Override
     public void run() {
+        game.addObserver(this);
+
         try {
             ServerSocket serverSocket = new ServerSocket(26789);
             Socket s = serverSocket.accept();
