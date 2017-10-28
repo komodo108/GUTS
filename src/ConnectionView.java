@@ -52,6 +52,7 @@ public class ConnectionView {
             public void actionPerformed(ActionEvent e) {
                 try {
                     connection = new Connection(ip.getText());
+                    connection.start();
                 } catch (UnknownHostException e1) {
                     e1.printStackTrace();
                 }
@@ -67,7 +68,7 @@ public class ConnectionView {
         frame.add(error);
 
         frame.setLayout(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 
