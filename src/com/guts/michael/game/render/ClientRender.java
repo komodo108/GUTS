@@ -22,6 +22,7 @@ public class ClientRender extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         if(c != 0) {
             g.clearRect(0, 0, getWidth(), getHeight());
             try {
