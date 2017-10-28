@@ -12,6 +12,7 @@ public class ServerRender extends Render {
     protected void paintComponent(Graphics g) {
         if (c != 0) {
             paintMap(g);
+            paintPlayer(g);
         } else {
             try {
                 String s = "Connect a client on: " + InetAddress.getLocalHost().getHostAddress();

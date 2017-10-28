@@ -15,6 +15,7 @@ public class ClientRender extends Render implements Observer {
         super.paintComponent(g);
         if(c != 0) {
             paintMap(g);
+            paintPlayer(g);
         } else {
             String s = "Connecting...";
             g.setFont(new Font("Arial", 1, 24));
