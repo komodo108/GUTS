@@ -10,8 +10,9 @@ public class ServerRender extends Render {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         if (c != 0) {
-            paintMap(g);
+            paintMap(g, false);
             paintPlayer(g);
         } else {
             try {
