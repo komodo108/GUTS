@@ -6,12 +6,16 @@ import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Client extends Thread {
+public class Client extends Observable implements Runnable {
 
     private InetAddress ip;
-    public Client(String ip) throws UnknownHostException {
+
+    public Client(String ip, Observer o) throws UnknownHostException {
         this.ip = InetAddress.getByName(ip);
+        addObserver(o);
     }
 
     @Override
@@ -22,7 +26,6 @@ public class Client extends Thread {
 
             // Main client loop
             while (true) {
-
                 // Read packet
                 IPacket packet = Packet.readNextPacket(read);
 
@@ -30,6 +33,10 @@ public class Client extends Thread {
                 if (packet instanceof MapPacket) {
                     // TODO: handle map packet here
                 }
+
+                //Render
+                setChanged();
+                notifyObservers();
             }
         } catch (IOException e) {
             e.printStackTrace();

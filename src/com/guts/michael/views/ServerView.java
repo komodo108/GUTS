@@ -1,21 +1,23 @@
 package com.guts.michael.views;
 
 import com.guts.michael.connection.Server;
+import com.guts.michael.game.render.Render;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
-public class ServerView {
+public class ServerView implements Observer {
 
     private JFrame frame;
     private JPanel panel;
+    private Render render = new Render();
 
     private final int DEFAULT_WIDTH = 800;
     private final int DEFAULT_HEIGHT = 800;
 
     public ServerView() {
-        new Server().start();
-
         panel = new JPanel();
         panel.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
@@ -28,9 +30,18 @@ public class ServerView {
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        new Server(this).run();
     }
 
-    public void render(Graphics g) {
-        g.drawLine(400, 0, 0, 400);
+    @Override
+    public void update(Observable o, Object arg) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                render.render(panel.getGraphics(), true);
+                frame.repaint();
+            }
+        });
     }
 }

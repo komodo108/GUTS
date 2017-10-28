@@ -1,36 +1,17 @@
 package com.guts.michael.connection;
 
-import com.guts.michael.views.Views;
 import com.guts.michael.game.IMap;
 import com.guts.michael.game.Map;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Observer;
 
-public class Server extends Thread {
+public class Server extends java.util.Observable implements Runnable {
 
-    private JFrame frame;
-    private JPanel panel;
-
-    private final int DEFAULT_WIDTH = 800;
-    private final int DEFAULT_HEIGHT = 800;
-
-    public Server() {
-        panel = new JPanel();
-        panel.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-
-        frame = new JFrame(Views.DEFAULT_NAME);
-        frame.setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
-        frame.setResizable(Views.RESIZABLE);
-
-        frame.add(panel);
-
-        frame.setLayout(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+    public Server(Observer o) {
+        addObserver(o);
     }
 
     @Override
@@ -64,7 +45,8 @@ public class Server extends Thread {
                     }
 
                     //Render
-                    render(panel.getGraphics());
+                    setChanged();
+                    notifyObservers();
 
                 } catch (CorruptedPacketException e) {
                     System.out.println("received corrupted packet");
@@ -73,9 +55,5 @@ public class Server extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void render(Graphics g) {
-        g.drawLine(400, 0, 0, 400);
     }
 }
