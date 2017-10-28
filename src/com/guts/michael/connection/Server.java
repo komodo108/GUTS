@@ -1,5 +1,7 @@
 package com.guts.michael.connection;
 
+import com.guts.michael.Views;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;

@@ -1,5 +1,7 @@
 package com.guts.michael.connection;
 
+import com.guts.michael.Views;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -41,7 +43,7 @@ public class Client extends Thread {
             Socket s = new Socket(ip, 26789);
             BufferedReader read = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
-            // com.guts.michael.connection.Main client loop
+            // com.guts.michael.Main client loop
             while (true) {
 
                 // Read packet

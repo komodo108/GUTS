@@ -1,4 +1,4 @@
-package com.guts.michael.connection;
+package com.guts.michael;
 
 import java.awt.*;
 

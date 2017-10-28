@@ -1,4 +1,6 @@
-package com.guts.michael.connection;
+package com.guts.michael;
+
+import com.guts.michael.connection.Client;
 
 import javax.swing.*;
 import java.awt.*;
