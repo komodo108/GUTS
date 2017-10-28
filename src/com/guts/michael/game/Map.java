@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class Map implements IMap {
 
+    private static final int RANDOM_MAP_EDGE_LENGTH = 23;
+
     private ITile[][] tiles;
 
     public Map(ITile[][] tiles) {
@@ -41,7 +43,7 @@ public class Map implements IMap {
     }
 
     public static Map generateRandom() {
-        ITile[][] tiles = new ITile[50][50];
+        ITile[][] tiles = new ITile[RANDOM_MAP_EDGE_LENGTH][RANDOM_MAP_EDGE_LENGTH];
         Random random = new Random();
         TileType[] types = TileType.getCumulativeArray();
         for (int x = 0; x < tiles.length; x++) {

@@ -16,8 +16,8 @@ public class ClientView implements Observer {
     private ClientRender clientRender;
     private KeyListen keyListen = new KeyListen();
 
-    private final int DEFAULT_WIDTH = 800;
-    private final int DEFAULT_HEIGHT = 800;
+    private final int DEFAULT_WIDTH = 736;
+    private final int DEFAULT_HEIGHT = 758;
 
     public ClientView(String ip) throws UnknownHostException {
         clientRender = new ClientRender();
