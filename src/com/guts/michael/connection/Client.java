@@ -34,7 +34,7 @@ public class Client extends Observable implements Runnable {
                     // TODO: handle map packet here
                 }
 
-                //Render
+                //ServerRender
                 setChanged();
                 notifyObservers();
             }

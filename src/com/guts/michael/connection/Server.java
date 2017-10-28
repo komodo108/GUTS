@@ -44,7 +44,7 @@ public class Server extends java.util.Observable implements Runnable {
                         // TODO: handle move packet here
                     }
 
-                    //Render
+                    //ServerRender
                     setChanged();
                     notifyObservers();
 
