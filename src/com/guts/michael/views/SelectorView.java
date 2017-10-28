@@ -1,7 +1,5 @@
 package com.guts.michael.views;
 
-import com.guts.michael.Views;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +25,7 @@ public class SelectorView {
 
     private void init() {
         client = new JButton("Client");
-        client.setBounds(Views.getDEFAULT_WIDTH()/2 - 85, Views.getDEFAULT_HEIGHT()/2 - 35, 80, 40);
+        client.setBounds(Views.DEFAULT_WIDTH/2 - 85, Views.DEFAULT_HEIGHT/2 - 35, 80, 40);
         client.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,7 +35,7 @@ public class SelectorView {
         });
 
         server = new JButton("Server");
-        server.setBounds(Views.getDEFAULT_WIDTH()/2 + 5, Views.getDEFAULT_HEIGHT()/2 - 35, 80, 40);
+        server.setBounds(Views.DEFAULT_WIDTH/2 + 5, Views.DEFAULT_HEIGHT/2 - 35, 80, 40);
         server.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,9 +44,9 @@ public class SelectorView {
             }
         });
 
-        frame = new JFrame(Views.getDEFAULT_NAME());
-        frame.setSize(Views.getDEFAULT_SIZE());
-        frame.setResizable(Views.isRESIZABLE());
+        frame = new JFrame(Views.DEFAULT_NAME);
+        frame.setSize(Views.DEFAULT_SIZE);
+        frame.setResizable(Views.RESIZABLE);
 
         frame.add(client);
         frame.add(server);

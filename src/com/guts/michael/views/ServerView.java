@@ -1,6 +1,5 @@
 package com.guts.michael.views;
 
-import com.guts.michael.Views;
 import com.guts.michael.connection.Server;
 
 import javax.swing.*;
@@ -20,9 +19,9 @@ public class ServerView {
         panel = new JPanel();
         panel.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
-        frame = new JFrame(Views.getDEFAULT_NAME());
+        frame = new JFrame(Views.DEFAULT_NAME);
         frame.setSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
-        frame.setResizable(Views.isRESIZABLE());
+        frame.setResizable(Views.RESIZABLE);
 
         frame.add(panel);
 
