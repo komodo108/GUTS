@@ -15,7 +15,7 @@ public class SpriteLoader {
     BufferedImage[] sprites;
 
     public SpriteLoader(int width, int height, int rows, int columns) throws IOException {
-        spriteSheet = ImageIO.read(new File("spritesheet.png"));
+        spriteSheet = ImageIO.read(new File("res/spritesheet.png"));
         sprites = new BufferedImage[rows * columns];
         this.width = width;
         this.height = height;
