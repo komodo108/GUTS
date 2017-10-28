@@ -44,7 +44,6 @@ public class ClientView implements Observer {
             public void run() {
                 clientRender.paintComponents(clientRender.getGraphics());
                 clientRender.repaint();
-                frame.repaint();
             }
         });
     }

@@ -1,13 +1,12 @@
 package com.guts.michael.game;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class SpriteLoader {
-    BufferedImage spriteSheet = ImageIO.read(new File("src/spriteSheet.png"));
+    BufferedImage spriteSheet;
 
     int width;
     int height;
@@ -16,6 +15,7 @@ public class SpriteLoader {
     BufferedImage[] sprites;
 
     public SpriteLoader(int width, int height, int rows, int columns) throws IOException {
+        spriteSheet = ImageIO.read(new File("../spritesheet.png"));
         sprites = new BufferedImage[rows * columns];
         this.width = width;
         this.height = height;
@@ -28,7 +28,8 @@ public class SpriteLoader {
             }
         }
     }
-    public void paint(Graphics g) {
-        g.drawImage(sprites[1], 100, 100, null);
+
+    public BufferedImage getSprites(int sprite) {
+        return sprites[sprite];
     }
 }

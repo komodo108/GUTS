@@ -44,7 +44,6 @@ public class ServerView implements Observer {
             public void run() {
                 serverRender.paintComponents(serverRender.getGraphics());
                 serverRender.repaint();
-                frame.repaint();
             }
         });
     }
