@@ -6,9 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.UnknownHostException;
 
-public class ConnectionView {
+public class ClientView {
 
-    private static ConnectionView connectionView;
+    private static ClientView clientView;
     private JFrame frame;
     private JTextField ip;
     private JButton go;
@@ -16,37 +16,31 @@ public class ConnectionView {
 
     private Client connection;
 
-    private final String DEFAULT_NAME = "Enter Server IP";
-    private final int DEFAULT_WIDTH = 400;
-    private final int DEFAULT_HEIGHT = 400;
-    private final Dimension DEFAULT_SIZE = new Dimension(400, 400);
-    private final boolean RESIZABLE = false;
-
-    public static ConnectionView getConnectionView() {
-        if(connectionView == null) {
-            connectionView = new ConnectionView();
-            return connectionView;
+    public static ClientView getClientView() {
+        if(clientView == null) {
+            clientView = new ClientView();
+            return clientView;
         } else {
-            return connectionView;
+            return clientView;
         }
     }
 
-    private ConnectionView() {
+    private ClientView() {
         init();
     }
 
     private void init() {
-
         error = new JLabel();
-        error.setBounds(DEFAULT_WIDTH/2 - 40, DEFAULT_HEIGHT/2 + 40, 80, 90);
+        error.setBounds(Views.getDEFAULT_WIDTH()/2 - 40, Views.getDEFAULT_HEIGHT()/2 - 100, 80, 90);
+        error.setText(format("Enter Server IP"));
 
         ip = new JTextField();
-        ip.setBounds((DEFAULT_WIDTH/2 - 120), (DEFAULT_HEIGHT/2 - 20), 240, 20);
+        ip.setBounds((Views.getDEFAULT_WIDTH()/2 - 120), (Views.getDEFAULT_HEIGHT()/2 - 20), 240, 20);
         ip.setMinimumSize(new Dimension(240, 20));
 
         go = new JButton("Go");
         go.setMaximumSize(new Dimension(60, 20));
-        go.setBounds((DEFAULT_WIDTH/2 - 30), (DEFAULT_HEIGHT/2 + 22), 60, 20);
+        go.setBounds((Views.getDEFAULT_WIDTH()/2 - 30), (Views.getDEFAULT_HEIGHT()/2 + 22), 60, 20);
         go.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,14 +48,15 @@ public class ConnectionView {
                     connection = new Client(ip.getText());
                     connection.start();
                 } catch (UnknownHostException e1) {
+                    error.setText(format("There was an error"));
                     e1.printStackTrace();
                 }
             }
         });
 
-        frame = new JFrame(DEFAULT_NAME);
-        frame.setSize(DEFAULT_SIZE);
-        frame.setResizable(RESIZABLE);
+        frame = new JFrame(Views.getDEFAULT_NAME());
+        frame.setSize(Views.getDEFAULT_SIZE());
+        frame.setResizable(Views.isRESIZABLE());
 
         frame.add(ip);
         frame.add(go);
