@@ -1,6 +1,7 @@
 package com.guts.michael.game;
 
 import java.util.Observable;
+import java.util.Random;
 
 public class Game extends Observable {
 
@@ -20,6 +21,17 @@ public class Game extends Observable {
     }
 
     public Game(IMap map, IEntity player) {
+        // Make sure that the player doesn't start on a wall
+        while (true) {
+            Random random = new Random();
+            int x = random.nextInt(map.getTiles().length);
+            int y = random.nextInt(map.getTiles()[x].length);
+            if (map.getTileAt(x,  y).getType() != TileType.WALL) {
+                player = new Entity(player.getId(), player.getType(), x, y, player.getOrientation());
+                break;
+            }
+        }
+
         this.map = map;
         this.player = player;
     }
@@ -69,7 +81,13 @@ public class Game extends Observable {
         if (isClientTurn) {
             return;
         }
+        // Shift row
         map.shiftRow(row, amount);
+        // Move player if necessary
+        if (map.getTileAt(player.getX(), player.getY()).getType() == TileType.WALL) {
+            player.setX((player.getX() + amount) % map.getTiles().length);
+        }
+        // Set changed
         setChanged();
         notifyObservers("player2finished");
     }
@@ -78,7 +96,13 @@ public class Game extends Observable {
         if (isClientTurn) {
             return;
         }
+        // Shift column
         map.shiftColumn(column, amount);
+        // Move player if necessary
+        if (map.getTileAt(player.getX(), player.getY()).getType() == TileType.WALL) {
+            player.setY((player.getY() + amount) % map.getTiles()[player.getX()].length);
+        }
+        // Set changed
         setChanged();
         notifyObservers("player2finished");
     }
