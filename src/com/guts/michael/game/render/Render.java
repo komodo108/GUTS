@@ -82,24 +82,26 @@ public class Render extends JPanel {
 
     public void paintEnemies(Graphics g, boolean isClient) {
         Game game = Game.getInstance();
-        for(int x = 0; x < game.getMap().getTiles().length; x++) {
-            for (int y = 0; y < game.getMap().getTiles()[x].length; y++) {
-                for (IEntity enemy : game.getEnemies()) {
-                    if (!isClient || (Math.abs(enemy.getX() - x) <= 1 && Math.abs(enemy.getY() - y) <= 1)) {
-                        switch (game.getPlayer().getOrientation()) {
-                            case RIGHT:
-                                g.drawImage(loader.getSprites(18), x * 32, y * 32, null);
-                                break;
-                            case UP:
-                                g.drawImage(loader.getSprites(10), x * 32, y * 32, null);
-                                break;
-                            case DOWN:
-                                g.drawImage(loader.getSprites(10), x * 32, y * 32, null);
-                                break;
-                            case LEFT:
-                                g.drawImage(loader.getSprites(10), x * 32, y * 32, null);
-                                break;
+        for (IEntity enemy : game.getEnemies()) {
+            for(int x = 0; x < game.getMap().getTiles().length; x++) {
+                for (int y = 0; y < game.getMap().getTiles()[x].length; y++) {
+                    if(enemy.getX() == x && enemy.getY() == y) {
+                        if (!isClient || (Math.abs(game.getPlayer().getX() - x) <= 1 && Math.abs(game.getPlayer().getY() - y) <= 1)) {
+                            switch (game.getPlayer().getOrientation()) {
+                                case RIGHT:
+                                    g.drawImage(loader.getSprites(18), x * 32, y * 32, null);
+                                    break;
+                                case UP:
+                                    g.drawImage(loader.getSprites(10), x * 32, y * 32, null);
+                                    break;
+                                case DOWN:
+                                    g.drawImage(loader.getSprites(10), x * 32, y * 32, null);
+                                    break;
+                                case LEFT:
+                                    g.drawImage(loader.getSprites(10), x * 32, y * 32, null);
+                                    break;
 
+                            }
                         }
                     }
                 }
