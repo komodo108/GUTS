@@ -62,6 +62,7 @@ public class Map implements IMap {
                 tiles[x][y] = new Tile(type);
             }
         }
+        tiles[tiles.length - 2][tiles.length - 2] = new Tile(TileType.VICTORY);
         return new Map(tiles);
     }
 }

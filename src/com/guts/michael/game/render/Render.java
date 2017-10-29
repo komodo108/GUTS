@@ -41,6 +41,8 @@ public class Render extends JPanel {
                             case VICTORY:
                                 //IS GRASS
                                 g.drawImage(loader.getSprites(16), x * 32, y * 32, null);
+                                g.setColor(new Color(255, 215, 0, 120));
+                                g.fillRect(x*32, y*32, 32, 32);
                                 break;
                         }
                     } else if (isClient) {
@@ -122,9 +124,19 @@ public class Render extends JPanel {
     }
 
     public void paintVictory(Graphics g) {
-        String s = "Client Wins!";
+        String s = "You Wins!";
 
         g.setColor(new Color(255, 215, 0, 80));
+        g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", 1, 24));
+        g.drawString(s, getWidth() / 2 - ((s.length() * 24) / 4), getHeight() / 2 - 12);
+    }
+
+    public void paintLose(Graphics g) {
+        String s = "You Loses!!";
+
+        g.setColor(new Color(255, 0, 0, 160));
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", 1, 24));

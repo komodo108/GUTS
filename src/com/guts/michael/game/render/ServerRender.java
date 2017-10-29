@@ -20,6 +20,7 @@ public class ServerRender extends Render {
                 paintServerControls(g);
             }
             if(Game.getInstance().isVictory()) paintVictory(g);
+            if(Game.getInstance().isLose()) paintLose(g);
            // paintPlayer(g);
         } else {
             try {
