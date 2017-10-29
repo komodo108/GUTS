@@ -60,10 +60,10 @@ public class Render extends JPanel {
                             g.drawImage(loader.getSprites(17), x * 32, y * 32, null);
                             break;
                         case UP:
-                            g.drawImage(loader.getSprites(2), x * 32, y * 32, null);
+                            g.drawImage(loader.getSprites(9), x * 32, y * 32, null);
                             break;
                         case DOWN:
-                            g.drawImage(loader.getSprites(9), x * 32, y * 32, null);
+                            g.drawImage(loader.getSprites(2), x * 32, y * 32, null);
                             break;
                         case LEFT:
                             g.drawImage(loader.getSprites(25), x * 32, y * 32, null);
