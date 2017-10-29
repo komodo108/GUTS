@@ -17,7 +17,7 @@ public class ServerView implements Observer {
     private MouseListen mouseListen = new MouseListen();
 
     private final int DEFAULT_WIDTH = 736;
-    private final int DEFAULT_HEIGHT = 736;
+    private final int DEFAULT_HEIGHT = 758;
 
     public ServerView() {
         serverRender = new ServerRender();
