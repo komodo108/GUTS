@@ -1,41 +1,77 @@
 package com.guts.michael.game;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Random;
 
 public class Game extends Observable {
 
+    private static int NUM_ENEMIES = 5;
+
     private static Game game;
     private IMap map;
     private IEntity player;
+    private List<IEntity> enemies;
+
     private int lastMoveAmount;
     private Direction lastMoveDirection;
-
     private boolean isClientTurn = true;
 
     public static Game getInstance() {
         if (game == null) {
-            game = new Game(Map.generateRandom(), new Entity(0, EntityType.PLAYER, 4, 4, Direction.RIGHT));
+            game = new Game(Map.generateRandom(), new Entity(EntityType.PLAYER, 4, 4, Direction.RIGHT), NUM_ENEMIES);
         }
         return game;
     }
 
     public Game(IMap map, IEntity player) {
-        // Make sure that the player doesn't start on a wall
-        if (map.getTileAt(player.getX(), player.getY()).getType() == TileType.WALL) {
-            while (true) {
-                Random random = new Random();
-                int x = random.nextInt(map.getTiles().length);
-                int y = random.nextInt(map.getTiles()[x].length);
-                if (map.getTileAt(x, y).getType() != TileType.WALL) {
-                    player = new Entity(player.getId(), player.getType(), x, y, player.getOrientation());
-                    break;
-                }
-            }
-        }
+        this(map, player, new LinkedList<>());
+    }
 
+    public Game(IMap map, IEntity player, List<IEntity> enemies) {
         this.map = map;
         this.player = player;
+
+        // Make sure that the player doesn't start on a wall
+        player = makeSureEntityIsNotOnWall(player);
+        List<IEntity> newEnemies = new LinkedList<>();
+        for (IEntity enemy : enemies) {
+            newEnemies.add(makeSureEntityIsNotOnWall(enemy));
+        }
+        this.enemies = newEnemies;
+    }
+
+    public Game(IMap map, IEntity player, int numberOfEnemies) {
+        this(map, player, generateRandomEnemies(numberOfEnemies, map));
+    }
+
+    private static List<IEntity> generateRandomEnemies(int numberOfEnemies, IMap map) {
+        List<IEntity> enemies = new LinkedList<>();
+        for (int i = 0; i < numberOfEnemies; i++) {
+            enemies.add(assignRandomPosition(new Entity(EntityType.ENEMY, 0, 0, Direction.RIGHT), map));
+        }
+        return enemies;
+    }
+
+    private IEntity makeSureEntityIsNotOnWall(IEntity entity) {
+        if (map.getTileAt(entity.getX(), entity.getY()).getType() == TileType.WALL) {
+            entity = assignRandomPosition(entity, map);
+        }
+        return entity;
+    }
+
+    private static IEntity assignRandomPosition(IEntity entity, IMap map) {
+        while (true) {
+            Random random = new Random();
+            int x = random.nextInt(map.getTiles().length);
+            int y = random.nextInt(map.getTiles()[x].length);
+            if (map.getTileAt(x, y).getType() != TileType.WALL) {
+                entity = new Entity(entity.getType(), x, y, entity.getOrientation());
+                break;
+            }
+        }
+        return entity;
     }
 
     public void movePlayer(int amount, Direction direction) throws IllegalMoveException {
@@ -43,6 +79,7 @@ public class Game extends Observable {
         if (!isClientTurn()) {
             return;
         }
+        moveEnemies();
         int newX = player.getX();
         int newY = player.getY();
         switch (direction) {
@@ -110,11 +147,42 @@ public class Game extends Observable {
         notifyObservers("player2finished");
     }
 
-    public void setGame(IMap map, IEntity player) {
+    public void setGame(IMap map, IEntity player, List<IEntity> enemies) {
         this.map = map;
         this.player = player;
+        this.enemies = enemies;
         setChanged();
         notifyObservers();
+    }
+
+    public List<IEntity> getEnemies() {
+        return enemies;
+    }
+
+    public void moveEnemies() {
+        for (IEntity e : enemies) {
+            int x = e.getX();
+            int y = e.getY();
+            List<Direction> possibleDirections = new LinkedList<>();
+            if (x < map.getTiles().length - 1 && map.getTileAt(x + 1, y).getType() != TileType.WALL) {
+                possibleDirections.add(Direction.RIGHT);
+            }
+            if (x > 0 && map.getTileAt(x - 1, y).getType() != TileType.WALL) {
+                possibleDirections.add(Direction.LEFT);
+            }
+            if (y < map.getTiles().length - 1 && map.getTileAt(x, y + 1).getType() != TileType.WALL) {
+                possibleDirections.add(Direction.UP);
+            }
+            if (y > 0 && map.getTileAt(x, y - 1).getType() != TileType.WALL) {
+                possibleDirections.add(Direction.DOWN);
+            }
+            if (possibleDirections.size() == 0) {
+                continue;
+            }
+            Random random = new Random();
+            Direction direction = possibleDirections.get(random.nextInt(possibleDirections.size()));
+            e.move(1, direction);
+        }
     }
 
     public synchronized int getLastMoveAmount() {

@@ -18,7 +18,6 @@ public class EntityPacket extends Packet {
     }
 
     public static EntityPacket fromDataString(String data) {
-        int id = 0;
         EntityType type = null;
         int x = 0;
         int y = 0;
@@ -27,10 +26,7 @@ public class EntityPacket extends Packet {
             String[] keyValue = line.split(": ");
             String key = keyValue[0];
             String value = keyValue[1];
-            switch (keyValue[0]) {
-                case "ID":
-                    id = Integer.valueOf(value);
-                    break;
+            switch (key) {
                 case "TYPE":
                     type = EntityType.valueOf(value);
                     break;
@@ -44,7 +40,7 @@ public class EntityPacket extends Packet {
                     orientation = Direction.valueOf(value);
             }
         }
-        return new EntityPacket(new Entity(id, type, x, y, orientation));
+        return new EntityPacket(new Entity(type, x, y, orientation));
     }
 
     @Override
@@ -54,8 +50,7 @@ public class EntityPacket extends Packet {
 
     @Override
     public String asDataString() {
-        return "ID: " + entity.getId() + "\n" +
-                "TYPE: " + entity.getType().name() + "\n" +
+        return  "TYPE: " + entity.getType().name() + "\n" +
                 "X: " + entity.getX() + "\n" +
                 "Y: " + entity.getY() + "\n" +
                 "ORIENTATION: " + entity.getOrientation().name();

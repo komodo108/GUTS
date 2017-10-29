@@ -2,23 +2,16 @@ package com.guts.michael.game;
 
 public class Entity implements IEntity {
 
-    private int id;
     private EntityType type;
     int x;
     int y;
     Direction orientation;
 
-    public Entity(int id, EntityType type, int x, int y, Direction orientation) {
-        this.id = id;
+    public Entity(EntityType type, int x, int y, Direction orientation) {
         this.type = type;
         this.x = x;
         this.y = y;
         this.orientation = orientation;
-    }
-
-    @Override
-    public int getId() {
-        return id;
     }
 
     @Override

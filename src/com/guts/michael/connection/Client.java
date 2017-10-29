@@ -1,13 +1,13 @@
 package com.guts.michael.connection;
 
-import com.guts.michael.game.Game;
-import com.guts.michael.game.IEntity;
-import com.guts.michael.game.IMap;
+import com.guts.michael.game.*;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -15,7 +15,8 @@ public class Client extends Observable implements Runnable, Observer {
 
     private InetAddress ip;
     private IMap map;
-    private IEntity entity;
+    private IEntity player;
+    private List<IEntity> enemies = new LinkedList<>();
     private Socket s;
     private BufferedReader read;
     private BufferedWriter write;
@@ -50,10 +51,16 @@ public class Client extends Observable implements Runnable, Observer {
                     if (packet instanceof MapPacket) {
                         map = ((MapPacket) packet).getMap();
                     } else if (packet instanceof EntityPacket) {
-                        entity = ((EntityPacket) packet).getEntity();
+                        IEntity entity = ((EntityPacket) packet).getEntity();
+                        if (entity.getType() == EntityType.PLAYER) {
+                            player = entity;
+                        } else if (entity.getType() == EntityType.ENEMY) {
+                            enemies.add(entity);
+                        }
                     } else if (packet instanceof FinishedPacket) {
                         Game.getInstance().setClientTurn(true);
-                        Game.getInstance().setGame(map, entity);
+                        Game.getInstance().setGame(map, player, enemies);
+                        enemies = new LinkedList<>();
                     }
 
 

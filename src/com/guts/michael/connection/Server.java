@@ -1,6 +1,7 @@
 package com.guts.michael.connection;
 
 import com.guts.michael.game.Game;
+import com.guts.michael.game.IEntity;
 import com.guts.michael.game.IllegalMoveException;
 
 import java.io.*;
@@ -73,9 +74,20 @@ public class Server extends java.util.Observable implements Runnable, Observer {
         }
     }
 
-    public void writeEntity() {
+    public void writePlayer() {
         try {
             write.write(new EntityPacket(Game.getInstance().getPlayer()).asPacketString());
+            write.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeEnemies() {
+        try {
+            for (IEntity enemy : Game.getInstance().getEnemies()) {
+                write.write(new EntityPacket(enemy).asPacketString());
+            }
             write.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -93,7 +105,8 @@ public class Server extends java.util.Observable implements Runnable, Observer {
 
     public void writeCurrentGame() {
         writeMap();
-        writeEntity();
+        writePlayer();
+        writeEnemies();
         writeFinished();
     }
 
@@ -103,9 +116,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
         notifyObservers();
         if (arg != null && arg.equals("player2finished")) {
             Game.getInstance().setClientTurn(true);
-            writeMap();
-            writeEntity();
-            writeFinished();
+            writeCurrentGame();
         }
     }
 }

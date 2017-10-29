@@ -12,8 +12,6 @@ public interface IEntity {
 
     EntityType getType();
 
-    int getId();
-
     Direction getOrientation();
 
     void moveX(int amount);
