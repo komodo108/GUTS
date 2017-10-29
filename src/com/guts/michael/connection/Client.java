@@ -53,7 +53,7 @@ public class Client extends Observable implements Runnable, Observer {
                         entity = ((EntityPacket) packet).getEntity();
                     } else if (packet instanceof FinishedPacket) {
                         Game.getInstance().setClientTurn(true);
-                        Game.getInstance().setGame(new Game(map, entity));
+                        Game.getInstance().setGame(map, entity);
                     }
 
 
