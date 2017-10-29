@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Game extends Observable {
 
-    private static int NUM_ENEMIES = 5;
+    private static int NUM_ENEMIES = 10;
 
     private static Game game;
     private IMap map;
