@@ -169,6 +169,7 @@ public class Game extends Observable {
     }
 
     public void moveEnemies() {
+        Random random = new Random();
         for (IEntity e : enemies) {
             int x = e.getX();
             int y = e.getY();
@@ -185,11 +186,11 @@ public class Game extends Observable {
             if (x > 0 && map.getTileAt(x - 1, y).getType() != TileType.WALL) {
                 directions.put(Direction.LEFT, 1);
             }
-            if (y < map.getTiles().length - 2 && map.getTileAt(x, y - 1).getType() != TileType.WALL) {
-                directions.put(Direction.UP, 1);
-            }
-            if (y > 0 && map.getTileAt(x, y + 1).getType() != TileType.WALL) {
+            if (y < map.getTiles().length - 2 && map.getTileAt(x, y + 1).getType() != TileType.WALL) {
                 directions.put(Direction.DOWN, 1);
+            }
+            if (y > 0 && map.getTileAt(x, y - 1).getType() != TileType.WALL) {
+                directions.put(Direction.UP, 1);
             }
             if (xDiffToPlayer > 0) {
                 directions.put(Direction.RIGHT, directions.get(Direction.RIGHT) * 2);
@@ -224,7 +225,6 @@ public class Game extends Observable {
             if (cumulativeDirections.size() == 0) {
                 continue;
             }
-            Random random = new Random();
             Direction direction = cumulativeDirections.get(random.nextInt(cumulativeDirections.size()));
             e.move(1, direction);
         }
