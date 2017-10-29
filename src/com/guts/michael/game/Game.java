@@ -196,9 +196,9 @@ public class Game extends Observable {
             } else if (xDiffToPlayer < 0) {
                 directions.put(Direction.LEFT, directions.get(Direction.LEFT) * 2);
             }
-            if (yDiffToPlayer > 0) {
+            if (yDiffToPlayer < 0) {
                 directions.put(Direction.UP, directions.get(Direction.UP) * 2);
-            } else if (yDiffToPlayer < 0) {
+            } else if (yDiffToPlayer > 0) {
                 directions.put(Direction.DOWN, directions.get(Direction.DOWN) * 2);
             }
             if (Math.abs(xDiffToPlayer) < Math.abs(yDiffToPlayer)) {
@@ -216,6 +216,7 @@ public class Game extends Observable {
             }
             List<Direction> cumulativeDirections = new LinkedList<>();
             for (java.util.Map.Entry<Direction, Integer> entry : directions.entrySet()) {
+                // System.out.println("enemy " + entry.getKey().name() + " " + entry.getValue());
                 for (int i = 0; i < entry.getValue(); i++) {
                     cumulativeDirections.add(entry.getKey());
                 }
