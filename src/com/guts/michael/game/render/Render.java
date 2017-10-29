@@ -134,7 +134,7 @@ public class Render extends JPanel {
     }
 
     public void paintLose(Graphics g) {
-        String s = "You Loses!!";
+        String s = "You Lose!";
 
         g.setColor(new Color(255, 0, 0, 160));
         g.fillRect(0, 0, getWidth(), getHeight());
