@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.UnknownHostException;
 
 public class ClientConnectionView {
@@ -13,7 +14,7 @@ public class ClientConnectionView {
     private JFrame frame;
     private JTextField ip;
     private JButton go;
-    private JLabel error;
+    private JLabel error, image;
 
     private Client connection;
 
@@ -22,6 +23,12 @@ public class ClientConnectionView {
     }
 
     private void init() {
+        try {
+            image = new JLabel(Views.getImage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         error = new JLabel();
         error.setBounds(Views.DEFAULT_WIDTH/2 - 40, Views.DEFAULT_HEIGHT/2 - 100, 80, 90);
         error.setText(format("Enter Server IP"));
@@ -49,6 +56,8 @@ public class ClientConnectionView {
         frame = new JFrame(Views.DEFAULT_NAME);
         frame.setSize(Views.DEFAULT_SIZE);
         frame.setResizable(Views.RESIZABLE);
+
+        frame.setContentPane(image);
 
         frame.add(ip);
         frame.add(go);
