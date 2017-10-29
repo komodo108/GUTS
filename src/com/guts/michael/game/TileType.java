@@ -8,7 +8,8 @@ public enum TileType {
     WALL('X', 2),
     SPACE('.', 2),
     GRASS('G', 1),
-    SAND('S', 1);
+    SAND('S', 1),
+    VICTORY('V',0);
 
     /*
     SPACE(' '),
