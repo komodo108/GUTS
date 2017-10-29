@@ -1,5 +1,6 @@
 package com.guts.michael.connection;
 
+import com.guts.michael.Main;
 import com.guts.michael.game.Game;
 import com.guts.michael.game.IEntity;
 import com.guts.michael.game.IllegalMoveException;
@@ -21,7 +22,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
 
         try {
 
-            ServerSocket serverSocket = new ServerSocket(26789);
+            ServerSocket serverSocket = new ServerSocket(Main.PORT);
             Socket s = serverSocket.accept();
             BufferedReader read = new BufferedReader(new InputStreamReader(s.getInputStream()));
             write = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));

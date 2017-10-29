@@ -1,5 +1,6 @@
 package com.guts.michael.connection;
 
+import com.guts.michael.Main;
 import com.guts.michael.game.*;
 
 import java.io.*;
@@ -30,7 +31,7 @@ public class Client extends Observable implements Runnable, Observer {
         Game.getInstance().addObserver(this);
 
         try {
-            s = new Socket(ip, 26789);
+            s = new Socket(ip, Main.PORT);
             write = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
             read = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
