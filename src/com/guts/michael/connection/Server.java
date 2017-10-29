@@ -43,14 +43,16 @@ public class Server extends java.util.Observable implements Runnable, Observer {
 
                     if (packet instanceof MovePacket) {
                         MovePacket move = (MovePacket) packet;
-                        Game.getInstance().movePlayer(move.getAmount(), move.getDirection());
-                        Game.getInstance().isClientTurn = false;
+                        try {
+                            Game.getInstance().movePlayer(move.getAmount(), move.getDirection());
+                            Game.getInstance().isClientTurn = false;
+                        } catch (IllegalMoveException e) {
+                            System.err.println("illegal move, ignoring");
+                        }
                     }
 
                 } catch (CorruptedPacketException e) {
                     System.out.println("received corrupted packet");
-                } catch (IllegalMoveException e) {
-                    e.printStackTrace();
                 }
             }
         } catch (IOException e) {
