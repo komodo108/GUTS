@@ -16,6 +16,7 @@ public class MouseListen extends Observable implements MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        System.out.println(e.getX() + ", " + e.getY());
         int x = e.getX()/32;
         int y = e.getY()/32;
 

@@ -37,7 +37,8 @@ public class ServerView implements Observer {
         server.addObserver(this);
         new Thread(server).start();
 
-        frame.addMouseListener(mouseListen);
+        serverRender.addMouseListener(mouseListen);
+        serverRender.setFocusable(true);
 
         frame.repaint();
     }
