@@ -124,7 +124,7 @@ public class Render extends JPanel {
     }
 
     public void paintVictory(Graphics g) {
-        String s = "You Wins!";
+        String s = "You Win!";
 
         g.setColor(new Color(255, 215, 0, 80));
         g.fillRect(0, 0, getWidth(), getHeight());
