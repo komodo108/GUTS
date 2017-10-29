@@ -1,9 +1,6 @@
 package com.guts.michael.game;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Random;
+import java.util.*;
 
 public class Game extends Observable {
 
@@ -175,24 +172,59 @@ public class Game extends Observable {
         for (IEntity e : enemies) {
             int x = e.getX();
             int y = e.getY();
-            List<Direction> possibleDirections = new LinkedList<>();
+            int xDiffToPlayer = player.getX() - x;
+            int yDiffToPlayer = player.getY() - y;
+            HashMap<Direction, Integer> directions = new HashMap<>();
+            directions.put(Direction.UP, 0);
+            directions.put(Direction.DOWN, 0);
+            directions.put(Direction.LEFT, 0);
+            directions.put(Direction.RIGHT, 0);
             if (x < map.getTiles().length - 1 && map.getTileAt(x + 1, y).getType() != TileType.WALL) {
-                possibleDirections.add(Direction.RIGHT);
+                directions.put(Direction.RIGHT, 1);
             }
             if (x > 0 && map.getTileAt(x - 1, y).getType() != TileType.WALL) {
-                possibleDirections.add(Direction.LEFT);
+                directions.put(Direction.LEFT, 1);
             }
             if (y < map.getTiles().length - 1 && map.getTileAt(x, y - 1).getType() != TileType.WALL) {
-                possibleDirections.add(Direction.UP);
+                directions.put(Direction.UP, 1);
             }
             if (y > 0 && map.getTileAt(x, y + 1).getType() != TileType.WALL) {
-                possibleDirections.add(Direction.DOWN);
+                directions.put(Direction.DOWN, 1);
             }
-            if (possibleDirections.size() == 0) {
+            if (xDiffToPlayer > 0) {
+                directions.put(Direction.RIGHT, directions.get(Direction.RIGHT) * 2);
+            } else if (xDiffToPlayer < 0) {
+                directions.put(Direction.LEFT, directions.get(Direction.LEFT) * 2);
+            }
+            if (yDiffToPlayer > 0) {
+                directions.put(Direction.UP, directions.get(Direction.UP) * 2);
+            } else if (yDiffToPlayer < 0) {
+                directions.put(Direction.DOWN, directions.get(Direction.DOWN) * 2);
+            }
+            if (Math.abs(xDiffToPlayer) < Math.abs(yDiffToPlayer)) {
+                if (xDiffToPlayer > 0) {
+                    directions.put(Direction.RIGHT, directions.get(Direction.RIGHT) * 2);
+                } else if (xDiffToPlayer < 0) {
+                    directions.put(Direction.LEFT, directions.get(Direction.LEFT) * 2);
+                }
+            } else if (Math.abs(xDiffToPlayer) > Math.abs(yDiffToPlayer)) {
+                if (yDiffToPlayer > 0) {
+                    directions.put(Direction.UP, directions.get(Direction.UP) * 2);
+                } else if (yDiffToPlayer < 0) {
+                    directions.put(Direction.DOWN, directions.get(Direction.DOWN) * 2);
+                }
+            }
+            List<Direction> cumulativeDirections = new LinkedList<>();
+            for (java.util.Map.Entry<Direction, Integer> entry : directions.entrySet()) {
+                for (int i = 0; i < entry.getValue(); i++) {
+                    cumulativeDirections.add(entry.getKey());
+                }
+            }
+            if (cumulativeDirections.size() == 0) {
                 continue;
             }
             Random random = new Random();
-            Direction direction = possibleDirections.get(random.nextInt(possibleDirections.size()));
+            Direction direction = cumulativeDirections.get(random.nextInt(cumulativeDirections.size()));
             e.move(1, direction);
         }
     }
