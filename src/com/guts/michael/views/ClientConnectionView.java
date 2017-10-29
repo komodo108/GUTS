@@ -30,7 +30,9 @@ public class ClientConnectionView {
         }
 
         error = new JLabel();
-        error.setBounds(Views.DEFAULT_WIDTH/2 - 40, Views.DEFAULT_HEIGHT/2 - 100, 80, 90);
+        error.setFont(new Font("Arial", 1, 24));
+        error.setForeground(Color.WHITE);
+        error.setBounds(Views.DEFAULT_WIDTH/2 - 60, Views.DEFAULT_HEIGHT/2 - 100, 120, 90);
         error.setText(format("Enter Server IP"));
 
         ip = new JTextField();
