@@ -19,6 +19,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
         Game.getInstance().setClientTurn(true);
 
         try {
+
             ServerSocket serverSocket = new ServerSocket(26789);
             Socket s = serverSocket.accept();
             BufferedReader read = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -26,6 +27,9 @@ public class Server extends java.util.Observable implements Runnable, Observer {
 
             // Write initial map and state
             writeCurrentGame();
+
+            setChanged();
+            notifyObservers();
 
             while (true) {
 
