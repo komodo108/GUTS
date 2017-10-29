@@ -247,7 +247,7 @@ public class Game extends Observable {
     }
 
     public synchronized boolean isVictory() {
-        if(this.getMap().getTileAt(getPlayer().getX(), getPlayer().getY()).getType().getRepresentation() == 'V') return true;
+        if(this.getMap().getTileAt(getPlayer().getX(), getPlayer().getY()).getType() == TileType.VICTORY) return true;
         else return false;
     }
 
@@ -257,10 +257,10 @@ public class Game extends Observable {
                 return true;
             }
         }
-        if(this.getMap().getTileAt(getPlayer().getX() - 1, getPlayer().getY()).getType().getRepresentation() == 'X' &&
-                this.getMap().getTileAt(getPlayer().getX() + 1, getPlayer().getY()).getType().getRepresentation() == 'X' &&
-                this.getMap().getTileAt(getPlayer().getX(), getPlayer().getY() - 1).getType().getRepresentation() == 'X' &&
-                this.getMap().getTileAt(getPlayer().getX(), getPlayer().getY() + 1).getType().getRepresentation() == 'X') return true;
+        if(this.getMap().getTileAt(getPlayer().getX() - 1, getPlayer().getY()).getType() == TileType.WALL &&
+                this.getMap().getTileAt(getPlayer().getX() + 1, getPlayer().getY()).getType() == TileType.WALL &&
+                this.getMap().getTileAt(getPlayer().getX(), getPlayer().getY() - 1).getType() == TileType.WALL &&
+                this.getMap().getTileAt(getPlayer().getX(), getPlayer().getY() + 1).getType() == TileType.WALL) return true;
         else return false;
     }
 
