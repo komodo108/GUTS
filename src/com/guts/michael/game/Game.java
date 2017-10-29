@@ -88,7 +88,7 @@ public class Game extends Observable {
         map.shiftRow(row, amount);
         // Move player if necessary
         if (map.getTileAt(player.getX(), player.getY()).getType() == TileType.WALL) {
-            player.setX((player.getX() + amount) % map.getTiles().length);
+            player.setY((player.getY() + amount) % map.getTiles().length);
         }
         // Set changed
         setChanged();
@@ -103,7 +103,7 @@ public class Game extends Observable {
         map.shiftColumn(column, amount);
         // Move player if necessary
         if (map.getTileAt(player.getX(), player.getY()).getType() == TileType.WALL) {
-            player.setY((player.getY() + amount) % map.getTiles()[player.getX()].length);
+            player.setX((player.getX() + amount) % map.getTiles().length);
         }
         // Set changed
         setChanged();
