@@ -18,6 +18,7 @@ public class ClientRender extends Render {
             paintPlayer(g);
             paintEnemies(g, true);
             if(Game.getInstance().isVictory()) paintVictory(g);
+            if(Game.getInstance().isLose()) paintLose(g);
         } else {
             String s = "Connecting...";
             g.setFont(new Font("Arial", 1, 24));

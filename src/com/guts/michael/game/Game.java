@@ -127,6 +127,12 @@ public class Game extends Observable {
         if (map.getTileAt(player.getX(), player.getY()).getType() == TileType.WALL) {
             player.setY((player.getY() + amount) % map.getTiles().length);
         }
+        //Move enemies if neccessay
+        for(IEntity e: enemies) {
+            if (map.getTileAt(e.getX(), e.getY()).getType() == TileType.WALL) {
+                e.setY((e.getY() + amount) % map.getTiles().length);
+            }
+        }
         // Set changed
         setChanged();
         notifyObservers("player2finished");
@@ -141,6 +147,12 @@ public class Game extends Observable {
         // Move player if necessary
         if (map.getTileAt(player.getX(), player.getY()).getType() == TileType.WALL) {
             player.setX((player.getX() + amount) % map.getTiles().length);
+        }
+        //Move enemies if neccessay
+        for(IEntity e:enemies) {
+            if (map.getTileAt(e.getX(), e.getY()).getType() == TileType.WALL) {
+                e.setX((e.getX() + amount) % map.getTiles().length);
+            }
         }
         // Set changed
         setChanged();
@@ -170,10 +182,10 @@ public class Game extends Observable {
             if (x > 0 && map.getTileAt(x - 1, y).getType() != TileType.WALL) {
                 possibleDirections.add(Direction.LEFT);
             }
-            if (y < map.getTiles().length - 1 && map.getTileAt(x, y + 1).getType() != TileType.WALL) {
+            if (y < map.getTiles().length - 1 && map.getTileAt(x, y - 1).getType() != TileType.WALL) {
                 possibleDirections.add(Direction.UP);
             }
-            if (y > 0 && map.getTileAt(x, y - 1).getType() != TileType.WALL) {
+            if (y > 0 && map.getTileAt(x, y + 1).getType() != TileType.WALL) {
                 possibleDirections.add(Direction.DOWN);
             }
             if (possibleDirections.size() == 0) {
@@ -206,8 +218,20 @@ public class Game extends Observable {
         else return false;
     }
 
+    public synchronized boolean isLose() {
+        for(IEntity e: enemies) {
+            if(e.getX() == getPlayer().getX() && e.getY() == getPlayer().getY()) {
+                return true;
+            }
+        } return false;
+    }
+
     public synchronized boolean isClientTurn() {
-        return isClientTurn;
+        if(!isVictory() && !isLose()) {
+            return isClientTurn;
+        } else {
+            return true;
+        }
     }
 
     public synchronized void setClientTurn(boolean clientTurn) {
