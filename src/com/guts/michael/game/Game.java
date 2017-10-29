@@ -256,7 +256,12 @@ public class Game extends Observable {
             if(e.getX() == getPlayer().getX() && e.getY() == getPlayer().getY()) {
                 return true;
             }
-        } return false;
+        }
+        if(this.getMap().getTileAt(getPlayer().getX() - 1, getPlayer().getY()).getType().getRepresentation() == 'X' &&
+                this.getMap().getTileAt(getPlayer().getX() + 1, getPlayer().getY()).getType().getRepresentation() == 'X' &&
+                this.getMap().getTileAt(getPlayer().getX(), getPlayer().getY() - 1).getType().getRepresentation() == 'X' &&
+                this.getMap().getTileAt(getPlayer().getX(), getPlayer().getY() + 1).getType().getRepresentation() == 'X') return true;
+        else return false;
     }
 
     public synchronized boolean isClientTurn() {
