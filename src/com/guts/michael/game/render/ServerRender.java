@@ -18,6 +18,7 @@ public class ServerRender extends Render {
             if (!Game.getInstance().isClientTurn()) {
                 paintServerControls(g);
             }
+            if(Game.getInstance().isVictory()) paintVictory(g);
            // paintPlayer(g);
         } else {
             try {

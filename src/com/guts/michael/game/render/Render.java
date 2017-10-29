@@ -37,6 +37,10 @@ public class Render extends JPanel {
                                 //16
                                 g.drawImage(loader.getSprites(16), x * 32, y * 32, null);
                                 break;
+                            case VICTORY:
+                                //IS GRASS
+                                g.drawImage(loader.getSprites(16), x * 32, y * 32, null);
+                                break;
                         }
                     } else if (isClient) {
                         g.setColor(Color.BLACK);
@@ -85,5 +89,15 @@ public class Render extends JPanel {
                 }
             }
         }
+    }
+
+    public void paintVictory(Graphics g) {
+        String s = "Client Wins!";
+
+        g.setColor(new Color(255, 215, 0, 80));
+        g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", 1, 24));
+        g.drawString(s, getWidth() / 2 - ((s.length() * 24) / 4), getHeight() / 2 - 12);
     }
 }

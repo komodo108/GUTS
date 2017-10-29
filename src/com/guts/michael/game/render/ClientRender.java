@@ -1,5 +1,7 @@
 package com.guts.michael.game.render;
 
+import com.guts.michael.game.Game;
+
 import java.awt.*;
 
 public class ClientRender extends Render {
@@ -14,6 +16,7 @@ public class ClientRender extends Render {
         if(c != 0) {
             paintMap(g, true);
             paintPlayer(g);
+            if(Game.getInstance().isVictory()) paintVictory(g);
         } else {
             String s = "Connecting...";
             g.setFont(new Font("Arial", 1, 24));

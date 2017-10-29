@@ -133,6 +133,11 @@ public class Game extends Observable {
         this.lastMoveDirection = lastMoveDirection;
     }
 
+    public synchronized boolean isVictory() {
+        if(this.getMap().getTileAt(getPlayer().getX(), getPlayer().getY()).getType().getRepresentation() == 'V') return true;
+        else return false;
+    }
+
     public synchronized boolean isClientTurn() {
         return isClientTurn;
     }
