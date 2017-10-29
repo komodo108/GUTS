@@ -30,8 +30,8 @@ public class Render extends JPanel {
                                 g.drawImage(loader.getSprites(8), x * 32, y * 32, null);
                                 break;
                             case SAND:
-                                //8 (for now)
-                                g.drawImage(loader.getSprites(8), x * 32, y * 32, null);
+                                //24 
+                                g.drawImage(loader.getSprites(24), x * 32, y * 32, null);
                                 break;
                             case GRASS:
                                 //16
