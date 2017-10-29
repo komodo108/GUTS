@@ -52,7 +52,7 @@ public class Client extends Observable implements Runnable, Observer {
                     } else if (packet instanceof EntityPacket) {
                         entity = ((EntityPacket) packet).getEntity();
                     } else if (packet instanceof FinishedPacket) {
-                        Game.getInstance().isClientTurn = true;
+                        Game.getInstance().setClientTurn(true);
                         Game.getInstance().setGame(new Game(map, entity));
                     }
 
@@ -69,8 +69,12 @@ public class Client extends Observable implements Runnable, Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (arg != null && arg.equals("player1finished")) {
+            if (Game.getInstance().getLastMoveAmount() == 0) {
+                Game.getInstance().setClientTurn(true);
+                return;
+            }
             try {
-                Game.getInstance().isClientTurn = false;
+                Game.getInstance().setClientTurn(false);
                 write.write(new MovePacket(Game.getInstance().getLastMoveDirection(), Game.getInstance().getLastMoveAmount()).asPacketString());
                 write.flush();
             } catch (IOException e) {

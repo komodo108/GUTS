@@ -16,7 +16,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
     @Override
     public void run() {
         Game.getInstance().addObserver(this);
-        Game.getInstance().isClientTurn = true;
+        Game.getInstance().setClientTurn(true);
 
         try {
             ServerSocket serverSocket = new ServerSocket(26789);
@@ -45,7 +45,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
                         MovePacket move = (MovePacket) packet;
                         try {
                             Game.getInstance().movePlayer(move.getAmount(), move.getDirection());
-                            Game.getInstance().isClientTurn = false;
+                            Game.getInstance().setClientTurn(false);
                         } catch (IllegalMoveException e) {
                             System.err.println("illegal move, ignoring");
                         }
@@ -98,7 +98,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
         setChanged();
         notifyObservers();
         if (arg != null && arg.equals("player2finished")) {
-            Game.getInstance().isClientTurn = true;
+            Game.getInstance().setClientTurn(true);
             writeMap();
             writeEntity();
             writeFinished();

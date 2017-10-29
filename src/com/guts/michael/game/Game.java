@@ -11,7 +11,7 @@ public class Game extends Observable {
     private int lastMoveAmount;
     private Direction lastMoveDirection;
 
-    public boolean isClientTurn = true;
+    private boolean isClientTurn = true;
 
     public static Game getInstance() {
         if (game == null) {
@@ -22,13 +22,15 @@ public class Game extends Observable {
 
     public Game(IMap map, IEntity player) {
         // Make sure that the player doesn't start on a wall
-        while (true) {
-            Random random = new Random();
-            int x = random.nextInt(map.getTiles().length);
-            int y = random.nextInt(map.getTiles()[x].length);
-            if (map.getTileAt(x,  y).getType() != TileType.WALL) {
-                player = new Entity(player.getId(), player.getType(), x, y, player.getOrientation());
-                break;
+        if (map.getTileAt(player.getX(), player.getY()).getType() == TileType.WALL) {
+            while (true) {
+                Random random = new Random();
+                int x = random.nextInt(map.getTiles().length);
+                int y = random.nextInt(map.getTiles()[x].length);
+                if (map.getTileAt(x, y).getType() != TileType.WALL) {
+                    player = new Entity(player.getId(), player.getType(), x, y, player.getOrientation());
+                    break;
+                }
             }
         }
 
@@ -37,7 +39,8 @@ public class Game extends Observable {
     }
 
     public void movePlayer(int amount, Direction direction) throws IllegalMoveException {
-        if (!isClientTurn) {
+        setLastMoveAmount(0);
+        if (!isClientTurn()) {
             return;
         }
         int newX = player.getX();
@@ -62,8 +65,8 @@ public class Game extends Observable {
         if (map.getTileAt(newX, newY).getType() == TileType.WALL) {
             throw new IllegalMoveException();
         }
-        lastMoveAmount = amount;
-        lastMoveDirection = direction;
+        setLastMoveAmount(amount);
+        setLastMoveDirection(direction);
         player.move(amount, direction);
         setChanged();
         notifyObservers("player1finished");
@@ -78,7 +81,7 @@ public class Game extends Observable {
     }
 
     public void shiftRow(int row, int amount) {
-        if (isClientTurn) {
+        if (isClientTurn()) {
             return;
         }
         // Shift row
@@ -93,7 +96,7 @@ public class Game extends Observable {
     }
 
     public void shiftColumn(int column, int amount) {
-        if (isClientTurn) {
+        if (isClientTurn()) {
             return;
         }
         // Shift column
@@ -114,11 +117,27 @@ public class Game extends Observable {
         notifyObservers();
     }
 
-    public int getLastMoveAmount() {
+    public synchronized int getLastMoveAmount() {
         return lastMoveAmount;
     }
 
-    public Direction getLastMoveDirection() {
+    public synchronized Direction getLastMoveDirection() {
         return lastMoveDirection;
+    }
+
+    private synchronized void setLastMoveAmount(int lastMoveAmount) {
+        this.lastMoveAmount = lastMoveAmount;
+    }
+
+    private synchronized void setLastMoveDirection(Direction lastMoveDirection) {
+        this.lastMoveDirection = lastMoveDirection;
+    }
+
+    public synchronized boolean isClientTurn() {
+        return isClientTurn;
+    }
+
+    public synchronized void setClientTurn(boolean clientTurn) {
+        isClientTurn = clientTurn;
     }
 }
