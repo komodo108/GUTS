@@ -41,7 +41,7 @@ public class Render extends JPanel {
                             case VICTORY:
                                 //IS GRASS
                                 g.drawImage(loader.getSprites(16), x * 32, y * 32, null);
-                                g.setColor(new Color(255, 215, 0, 120));
+                                g.setColor(new Color(148, 0, 211, 120));
                                 g.fillRect(x*32, y*32, 32, 32);
                                 break;
                         }
