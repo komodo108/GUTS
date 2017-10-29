@@ -12,7 +12,7 @@ public class Render extends JPanel {
     private SpriteLoader loader;
 
     public void paintMap(Graphics g, boolean isClient) {
-        isClient = false;
+        //isClient = false;
         Game game = Game.getInstance();
         g.clearRect(0, 0, getWidth(), getHeight());
         try {
