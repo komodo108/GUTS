@@ -72,11 +72,17 @@ public class Game extends Observable {
     }
 
     public void movePlayer(int amount, Direction direction) throws IllegalMoveException {
+        movePlayer(amount, direction, false);
+    }
+
+    public void movePlayer(int amount, Direction direction, boolean moveEnemies) throws IllegalMoveException {
         setLastMoveAmount(0);
         if (!isClientTurn()) {
             return;
         }
-        moveEnemies();
+        if (moveEnemies) {
+            moveEnemies();
+        }
         int newX = player.getX();
         int newY = player.getY();
         switch (direction) {

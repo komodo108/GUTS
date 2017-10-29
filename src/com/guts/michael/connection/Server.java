@@ -50,7 +50,7 @@ public class Server extends java.util.Observable implements Runnable, Observer {
                     if (packet instanceof MovePacket) {
                         MovePacket move = (MovePacket) packet;
                         try {
-                            Game.getInstance().movePlayer(move.getAmount(), move.getDirection());
+                            Game.getInstance().movePlayer(move.getAmount(), move.getDirection(), true);
                             Game.getInstance().setClientTurn(false);
                         } catch (IllegalMoveException e) {
                             System.err.println("illegal move, ignoring");
