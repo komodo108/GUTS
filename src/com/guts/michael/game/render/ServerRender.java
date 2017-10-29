@@ -15,6 +15,7 @@ public class ServerRender extends Render {
         super.paintComponent(g);
         if (c != 0) {
             paintMap(g, false);
+            paintEnemies(g, false);
             if (!Game.getInstance().isClientTurn()) {
                 paintServerControls(g);
             }

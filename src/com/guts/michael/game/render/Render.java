@@ -1,6 +1,7 @@
 package com.guts.michael.game.render;
 
 import com.guts.michael.game.Game;
+import com.guts.michael.game.IEntity;
 import com.guts.michael.game.SpriteLoader;
 
 import javax.swing.*;
@@ -73,6 +74,33 @@ public class Render extends JPanel {
                             g.drawImage(loader.getSprites(25), x * 32, y * 32, null);
                             break;
 
+                    }
+                }
+            }
+        }
+    }
+
+    public void paintEnemies(Graphics g, boolean isClient) {
+        Game game = Game.getInstance();
+        for(int x = 0; x < game.getMap().getTiles().length; x++) {
+            for (int y = 0; y < game.getMap().getTiles()[x].length; y++) {
+                for (IEntity enemy : game.getEnemies()) {
+                    if (!isClient || (Math.abs(enemy.getX() - x) <= 1 && Math.abs(enemy.getY() - y) <= 1)) {
+                        switch (game.getPlayer().getOrientation()) {
+                            case RIGHT:
+                                g.drawImage(loader.getSprites(18), x * 32, y * 32, null);
+                                break;
+                            case UP:
+                                g.drawImage(loader.getSprites(10), x * 32, y * 32, null);
+                                break;
+                            case DOWN:
+                                g.drawImage(loader.getSprites(10), x * 32, y * 32, null);
+                                break;
+                            case LEFT:
+                                g.drawImage(loader.getSprites(10), x * 32, y * 32, null);
+                                break;
+
+                        }
                     }
                 }
             }

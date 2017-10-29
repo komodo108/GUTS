@@ -16,6 +16,7 @@ public class ClientRender extends Render {
         if(c != 0) {
             paintMap(g, true);
             paintPlayer(g);
+            paintEnemies(g, true);
             if(Game.getInstance().isVictory()) paintVictory(g);
         } else {
             String s = "Connecting...";
