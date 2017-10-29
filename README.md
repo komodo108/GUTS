@@ -24,7 +24,7 @@ G GRASS
 V VICTORY
 ```
 
-#### Example map
+### Example map
 ```
 XXXXXXXXXXXXXXXXXXXXXXX
 X.X.XXX.X.XXXSS.S.XXS.X
