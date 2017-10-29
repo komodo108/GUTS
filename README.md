@@ -12,7 +12,11 @@ You may fork the project and use it as your own, if desired,
 however, in doing this you **must** add a link to the original project;
  https://github.com/komodo108/GUTS
 
+## Play
+Download `Tile Maze.zip`, extract, and run `GUTS.jar`.
+
 ## Usage
+
 ### Creating maps
 Use the following characters in the maps. 
 New lines denote new rows and each character denotes a new column.
