@@ -54,11 +54,13 @@ public class Entity implements IEntity {
     @Override
     public void moveX(int amount) {
         x += amount;
+        orientation = amount > 0 ? Direction.RIGHT : Direction.LEFT;
     }
 
     @Override
     public void moveY(int amount) {
         y += amount;
+        orientation = amount > 0 ? Direction.UP : Direction.DOWN;
     }
 
     @Override
