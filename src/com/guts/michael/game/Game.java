@@ -111,7 +111,7 @@ public class Game extends Observable {
     }
 
     public void setGame(IMap map, IEntity player) {
-        this.map = map
+        this.map = map;
         this.player = player;
         setChanged();
         notifyObservers();
