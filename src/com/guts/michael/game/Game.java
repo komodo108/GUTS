@@ -179,13 +179,13 @@ public class Game extends Observable {
             directions.put(Direction.DOWN, 0);
             directions.put(Direction.LEFT, 0);
             directions.put(Direction.RIGHT, 0);
-            if (x < map.getTiles().length - 1 && map.getTileAt(x + 1, y).getType() != TileType.WALL) {
+            if (x < map.getTiles().length - 2 && map.getTileAt(x + 1, y).getType() != TileType.WALL) {
                 directions.put(Direction.RIGHT, 1);
             }
             if (x > 0 && map.getTileAt(x - 1, y).getType() != TileType.WALL) {
                 directions.put(Direction.LEFT, 1);
             }
-            if (y < map.getTiles().length - 1 && map.getTileAt(x, y - 1).getType() != TileType.WALL) {
+            if (y < map.getTiles().length - 2 && map.getTileAt(x, y - 1).getType() != TileType.WALL) {
                 directions.put(Direction.UP, 1);
             }
             if (y > 0 && map.getTileAt(x, y + 1).getType() != TileType.WALL) {
