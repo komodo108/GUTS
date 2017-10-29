@@ -1,5 +1,7 @@
 package com.guts.michael.game.render;
 
+import com.guts.michael.game.Game;
+
 import java.awt.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -13,7 +15,9 @@ public class ServerRender extends Render {
         super.paintComponent(g);
         if (c != 0) {
             paintMap(g, false);
-            paintServerControls(g);
+            if (!Game.getInstance().isClientTurn()) {
+                paintServerControls(g);
+            }
            // paintPlayer(g);
         } else {
             try {
