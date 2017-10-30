@@ -1,6 +1,6 @@
 # GUTS
 This project will not be maintained any further. The source is available
-for anyone whp wants to update the game. 
+for anyone who wants to update the game. 
 
 ### Motivation
 This project was made for a hackathon (GUTS 2017), in 48 hours.
